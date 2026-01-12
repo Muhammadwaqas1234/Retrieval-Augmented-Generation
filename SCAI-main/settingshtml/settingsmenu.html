@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Menu</title>
+    <link rel="stylesheet" href="../css/settingscss/settingsmenu.css">
+    <script src="../js/settingsjs/settingsmenu.js" defer></script>
+</head>
+<body>
+    <a href="#" id="settings-link">Open Settings</a>
+    
+    <div id="settings-popup" class="settings-popup" style="display: none;">
+        <div class="settings-content">
+            <span class="close-button" id="close-button">&times;</span>
+            <div class="settings-sidebar">
+                <a href="#" class="settings-tab active" id="general-tab"><i class="fas fa-cog"></i> General</a>
+                <a href="#" class="settings-tab" id="personalization-tab"><i class="fas fa-user-cog"></i> Personalization</a>
+                <a href="#" class="settings-tab" id="speech-tab"><i class="fas fa-microphone-alt"></i> Speech</a>
+                <a href="#" class="settings-tab" id="profile-tab"><i class="fas fa-id-card-alt"></i> Profile</a>
+                <a href="#" class="settings-tab" id="connected-apps-tab"><i class="fas fa-link"></i> Connected Apps</a>
+                <a href="#" class="settings-tab" id="security-tab"><i class="fas fa-shield-alt"></i> Security</a>
+                <a href="#" class="settings-tab" id="help-tab"><i class="fas fa-question-circle"></i> Help</a>
+            </div>
+            <div class="settings-main">
+                <!-- General Settings -->
+                <div class="settings-section active" id="general-section">
+                    <h3>General</h3>
+                    <p>Theme: <select><option>System</option><option>Light</option><option>Dark</option></select></p>
+                    <p><label><input type="checkbox"> Always show code when using data analyst</label></p>
+                    <p>Language: <select><option>Auto-detect</option><option>English</option><option>Spanish</option></select></p>
+                </div>
+                <!-- Personalization Settings -->
+                <div class="settings-section" id="personalization-section">
+                    <h3>Personalization</h3>
+                </div>
+                <!-- Speech Settings -->
+                <div class="settings-section" id="speech-section">
+                    <h3>Speech</h3>
+                    <p>Voice: <select><option>Juniper</option><option>Cove</option><option>Ember</option><option>Breeze</option></select></p>
+                </div>
+                <!-- Profile Settings -->
+                <div class="settings-section" id="profile-section">
+                    <h3>Profile</h3>
+                    <p>Name: <input type="text" value="PETER FARAH"></p>
+                    <p>Email: <input type="email" value="peterfarrah20@gmail.com"></p>
+                </div>
+                <!-- Connected Apps Settings -->
+                <div class="settings-section" id="connected-apps-section">
+                    <h3>Connected Apps</h3>
+                    <p>Google Drive: <button class="button-connect">Connect</button></p>
+                    <p>Microsoft OneDrive (personal): <button class="button-connect">Connect</button></p>
+                    <p>Microsoft OneDrive (work/school): <button class="button-connect">Connect</button></p>
+                </div>
+                <!-- Security Settings -->
+                <div class="settings-section" id="security-section">
+                    <h3>Security</h3>
+                    <p><button class="security-item">Log out of all devices</button></p>
+                    <p><button class="security-item">Change Email</button></p>
+                    <p><button class="security-item">Change Password</button></p>
+                </div>
+                <!-- Help Section -->
+                <div class="settings-section" id="help-section">
+                    <h3>Help</h3>
+                    <p><a href="#" id="contact-us-link">Contact Us</a></p>
+                    <p><a href="faq.html">FAQ</a></p>
+                    <p><a href="privacy-policy.html">Privacy Policy</a></p>
+                    <p><a href="terms-and-conditions.html">Terms and Conditions</a></p>
+                    <p><a href="feature-requests.html">Feature Requests</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - SCAI</title>
+    <link rel="stylesheet" href="css/pricing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;700&family=Nunito:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+         body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    padding-top: 3px; /* Adjust for fixed header */
+}
+
+.pricing {
+    background-color: #fff;
+    padding: 50px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.pricing h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.pricing p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.toggle {
+    margin: 20px 0;
+}
+
+.toggle span {
+    font-size: 1em;
+    color: #666;
+}
+
+#toggle {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    background-color: #007bff;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+
+label:before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 28px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    transition: 0.2s;
+}
+
+#toggle:checked + label:before {
+    transform: translateX(30px);
+}
+
+.pricing-plans {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.plan {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin: 0 10px;
+    min-width: 250px;
+}
+
+.plan h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.plan .price {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.plan .price span {
+    font-size: 0.5em;
+    color: #666;
+}
+
+.plan ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.plan ul li {
+    font-size: 1em;
+    color: #666;
+    margin: 10px 0;
+}
+
+.plan .note {
+    font-size: 0.8em;
+    color: #999;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.buttons a {
+    flex: 1;
+    display: inline-block;
+    padding: 10px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    margin: 0 5px; /* Adjust spacing between buttons */
+}
+
+.buttons a:hover {
+    background-color: #0056b3;
+}
+
+.cta {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.cta h3 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.cta p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.get-started {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.get-started:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    color: #666;
+    margin-top: 40px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .pricing h1 {
+        font-size: 2em;
+    }
+
+    .pricing p {
+        font-size: 1em;
+    }
+
+    .plan h2 {
+        font-size: 1.5em;
+    }
+
+    .plan .price {
+        font-size: 2em;
+    }
+
+    .plan ul li {
+        font-size: 0.9em;
+    }
+
+    .plan {
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .pricing-plans {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .plan {
+        margin: 10px 0;
+        max-width: 100%;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons a {
+        margin: 5px 0;
+        width: 100%;
+        padding: 10px 0;
+    }
+}
+
+.blank-row {
+    height: 20px; /* Adjust the height as needed */
+    border-top: 1px solid #ddd; /* Optional: Add a border to make the row more noticeable */
+}
+
+.buttons button {
+    flex: 1;
+    display: inline-block;
+    padding: 10px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    margin: 0 5px; 
+}
+
+    .buttons button:hover {
+        background-color: #0056b3; /* Darker green background on hover */
+    }
+
+    .buttons button:focus {
+        outline: none; /* Remove outline on focus */
+    }
+
+    .buttons button:active {
+        background-color: #007bff; /* Even darker green when pressed */
+        box-shadow: 0 5px #007bff; /* Add shadow */
+        transform: translateY(4px); /* Move button down a bit */
+    }
+    </style>
+</head>
+<body>
+    
+    <main>
+        <section class="pricing">
+            <h1>Pricing</h1>
+            <p>Get 25% off annual plans. Cancel anytime. No questions asked.</p>
+            <div class="toggle">
+                <span>Monthly</span>
+                <input type="checkbox" id="toggle" onclick="togglePricing()" />
+                <label for="toggle"></label>
+                <span>Annual</span>
+            </div>
+            <div class="pricing-plans">
+                <div class="plan">
+                    <h2>Free</h2>
+                    <p class="price"><span class="price-value" data-monthly="0" data-annual="0">$0</span><span>/mo</span></p>
+                    <ul>
+                        <li>5 queries per day</li>
+                        <li>250,000 characters (~100 pages)</li>
+                        <li>10 MB file size limit</li>
+                        <li>Add article links</li>
+                        <li>Add YouTube videos</li>
+                        <li>OCR for scanned documents</li>
+                    </ul>
+                    <p class="note">* Books deleted after 7 days of inactivity.</p>
+                    <div class="buttons">
+                        <a href="{{ url_for('index') }}">Try for Free</a>
+                    </div>
+                </div>
+                <div class="plan">
+                    <h2>Lite</h2>
+                    <p class="price"><span class="price-value" data-monthly="6" data-annual="4">$4</span><span>/mo</span></p>
+                    <ul>
+                        <li>100 queries per day</li>
+                        <li>10 million characters (~4,000 pages)</li>
+                        <li>100 MB file size limit</li>
+                        <li>Add article links</li>
+                        <li>Add YouTube videos</li>
+                        <li>OCR for scanned documents</li>
+                        <li class="blank-row"></li> <!-- Blank row -->
+                    </ul>
+                    <div class="buttons">
+                        <button onclick="subscribe('Lite')">Lite</button>
+                    </div>
+                </div>
+                <div class="plan">
+                    <h2>Pro</h2>
+                    <p class="price"><span class="price-value" data-monthly="15" data-annual="10">$10</span><span>/mo</span></p>
+                    <ul>
+                        <li>1000 queries per day</li>
+                        <li>50 million characters (~20,000 pages)</li>
+                        <li>No file size limit</li>
+                        <li>Add article links</li>
+                        <li>Add YouTube videos</li>
+                        <li>OCR for scanned documents</li>
+                        <li class="blank-row"></li> <!-- Blank row -->
+                    </ul>
+                    <div class="buttons">
+                        <button onclick="subscribe('Pro')">Pro</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+
+    <script>
+        function togglePricing() {
+            const isAnnual = document.getElementById('toggle').checked;
+            const priceElements = document.querySelectorAll('.price-value');
+        
+            priceElements.forEach((element) => {
+                const monthlyPrice = element.getAttribute('data-monthly');
+                const annualPrice = element.getAttribute('data-annual');
+                element.textContent = `$${isAnnual ? annualPrice : monthlyPrice}`;
+            });
+        }
+
+        async function subscribe(plan) {
+            try {
+                const response = await fetch('/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ plan: plan }),
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    const stripe = Stripe('pk_live_51PDNsQGthr7AaSvULnZNACBai9axnSrVJ0CqAbhbwr0F7Xg8EYrmCevgQYLDTGymKowgatM29bzeofxK8I4IZAdg00K7TIkTDk');
+                    await stripe.redirectToCheckout({ sessionId: data.checkout_session_id });
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Page</title>
+    <link rel="stylesheet" href="css/doc.css">
+    <script src="js/import.js" defer></script>
+</head>
+<body>
+    <div class="main-container">
+        <aside class="sidebar">
+            <button class="sidebar-btn" onclick="location.href='chat.html'">
+                <img src="images/chat.png" alt="Chat">
+                Chat
+            </button>
+            <button class="sidebar-btn" onclick="location.href='library.html'">
+                <img src="images/library.png" alt="Library">
+                Library
+            </button>
+            <div class="dropdown">
+                <a href="#">Question History</a>
+                <a href="#">Function 2</a>
+            </div>
+            <button class="sidebar-btn active" onclick="location.href='import.html'">
+                <img src="images/addl.png" alt="Import Items">
+                Import
+            </button>
+            <div class="dropdown open">
+                <button class="sidebar-btn">Save Doc</button>
+                <div class="dropdown open">
+                    <button class="sidebar-btn" onclick="saveAsPDF()">Save as PDF</button>
+                    <button class="sidebar-btn" onclick="saveAsWord()">Save as Word</button>
+                    <button class="sidebar-btn" onclick="saveAsDoc()">Save as Doc</button>
+                </div>
+            </div>
+            <button class="sidebar-btn">
+                <img src="images/doc.png" alt="Doc Create">
+                Doc Create
+            </button>
+            <div class="dropdown"></div>
+            <button class="sidebar-btn">
+                <img src="images/workspace.png" alt="Workspace">
+                Workspace
+            </button>
+            <div class="dropdown">
+                <a href="#">See All</a>
+                <a href="#">Recent Workspace 1</a>
+                <a href="#">Recent Workspace 2</a>
+                <a href="#">Recent Workspace 3</a>
+            </div>
+            <button class="sidebar-btn">
+                <img src="images/help.png" alt="Help">
+                Help
+            </button>
+            <div class="dropdown">
+                <a href="#">Terms of Use</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact</a>
+            </div>
+        </aside>
+        <main class="content">
+            <div class="upload-area" id="upload-area">
+                <p>Drag & drop a file here or click to browse</p>
+                <input type="file" id="file-input" multiple style="display:none;">
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search or ask a question..." id="search-input">
+                <button class="send-button" id="send-button">
+                    <img src="images/up.png" alt="Send">
+                </button>
+                <button class="attach-icon">
+                    <img src="images/attach.png" alt="Attach">
+                </button>
+            </div>
+            <div id="doc-area">
+                <!-- Uploaded content will appear here -->
+            </div>
+        </main>
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="user-profile">
+                    <img src="images/usericon.png" alt="User" class="user-icon">
+                    <div class="user-dropdown">
+                        <a href="#">Account Settings</a>
+                        <a href="#">Profile</a>
+                        <a href="#">Log Out</a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <div class="notification"></div>
+                <div class="notification"></div>
+                <div class="notification"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

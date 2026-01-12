@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        /* Scoped styles for the modal and buttons */
+        .custom-modal .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .custom-modal .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 30px;
+            box-sizing: border-box;
+        }
+        .custom-modal .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .custom-modal .close:hover,
+        .custom-modal .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .custom-modal .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: white;
+        }
+        .custom-modal .btn-open {
+            color: black;
+        }
+        .custom-modal .btn-select {
+            color: black;
+        }
+        .custom-modal .btn-upload {
+            color: black;
+        }
+        .custom-modal .hidden-input {
+            display: none;
+        }
+        .custom-modal .icon {
+            margin-right: 5px;
+            width: 20px;
+            height: 20px;
+        }
+        .custom-modal .file-list {
+            margin-top: 10px;
+            list-style-type: none;
+            padding: 0;
+        }
+        .custom-modal .file-list li {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-modal">
+        <button id="openModalBtn" class="btn btn-open">
+            <img src="/static/img/attach.png" class="icon" alt="Upload Icon">Upload File
+        </button>
+
+        <!-- The Modal -->
+        <div id="uploadModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Upload Your Documents</h2>
+                <form id="uploadForm" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                    <input type="file" id="fileInput" name="file" multiple class="hidden-input" onchange="updateFileList()">
+                    <button type="button" class="btn btn-select" onclick="document.getElementById('fileInput').click();">
+                        <img src="/static/img/attach.png" class="icon" alt="Select Files Icon">Select Files
+                    </button>
+                    <ul id="fileList" class="file-list"></ul>
+                    <button type="submit" class="btn btn-upload">
+                        <img src="/static/img/attach.png" class="icon" alt="Upload Icon">Upload Files
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("uploadModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("openModalBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Update the file list
+        function updateFileList() {
+            var input = document.getElementById('fileInput');
+            var list = document.getElementById('fileList');
+            list.innerHTML = '';
+
+            for (var i = 0; i < input.files.length; i++) {
+                var li = document.createElement('li');
+                li.textContent = input.files[i].name;
+                list.appendChild(li);
+            }
+        }
+    </script>
+</body>
+</html>

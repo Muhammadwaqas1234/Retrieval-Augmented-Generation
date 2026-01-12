@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative; /* Add position relative to parent for absolute positioning */
+        }
+        .container {
+            padding: 20px;
+            max-width: 430px;
+            width: 100%;
+            background-color: #fff; /* Optional background color for the form container */
+            border-radius: 8px; /* Optional rounded corners */
+        }
+        .login-box {
+            text-align: center;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .logo img {
+            width: 100px; /* Adjust based on your logo size */
+            height: auto;
+        }
+        .logo h1 {
+            margin: 10px 0;
+            font-size: 36px;
+            color: #333;
+        }
+        .logo p {
+            font-size: 16px;
+            color: #666;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-family: emoji;
+            font-weight: 900;
+            font-size: 35px;
+        }
+        h4 {
+            font-family: "Kurale", Sans-serif;
+            font-weight: 500;
+            font-size: 28px;
+            margin-top: -10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 24px;
+            font-family: sans-serif;
+            font-weight: 600;
+            margin-top: 50px;
+        }
+        p {
+            text-align: center;
+            margin-top: 10px;
+        }
+        a {
+            color: #000000;
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+        }
+        a::before, a::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        }
+        a::before {
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+        /* Background image starting 305px from the left */
+        .main-container::before {
+            content: '';
+            position: absolute;
+            left: 305px; /* Start background image 305px from the left */
+            top: 0;
+            width: calc(100% - 305px); /* Cover the rest of the screen */
+            height: 100%;
+            background: url('/static/img/background.png') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.5; /* 50% opacity */
+            z-index: -1; /* Place behind the content */
+        }
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .main-container::before {
+                display: none; /* Hide background image on mobile */
+            }
+        }
+        @media (min-width: 1024px) {
+            body {
+                justify-content: flex-start;
+                padding-left: 30px;
+            }
+            .container {
+                max-width: 400px; /* Adjust based on your preference */
+                position: relative;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="container">
+            <div class="login-box">
+                <div class="logo">
+                    <img src="/static/img/library.png" alt="SCAI Logo">
+                    <h1>SCAI</h1>
+                    <p>Standards & Codes Ai</p>
+                </div>
+                <h2>Welcome!</h2>
+                <h4>Please login to your account to start using SCAI</h4>
+                <form action="{{ url_for('login') }}" method="post">
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                    </div>
+                    <p>Don't have an account? <a href="{{ url_for('register') }}">Signup</a></p>
+                    {% if error %}
+                    <p class="error">{{ error }}</p>
+                    {% endif %}
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

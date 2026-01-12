@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/settingscss/settingsmenu.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/settingsjs/settingsmenu.js" defer></script>
+</head>
+<body>
+    <style>
+        .form-input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-textarea {
+            width: 100%;
+            height: 100px;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-button {
+            float: right;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: rgb(3, 3, 3);
+            
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-button i {
+            margin-right: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #030303;
+            text-decoration: none;
+        }
+        .back-link i {
+            margin-right: 5px;
+        }
+      
+        .language-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.language-dropdown select {
+  appearance: none; /* Removes default dropdown arrow */
+  -webkit-appearance: none; /* Removes default dropdown arrow in Safari */
+  -moz-appearance: none; /* Removes default dropdown arrow in Firefox */
+  padding-right: 1.5em; /* Adds space for custom dropdown arrow */
+}
+
+.language-dropdown::after {
+  content: '▼';
+  position: absolute;
+  right: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+#speech-section p {
+  display: inline-block;
+  position: relative;
+}
+
+#speech-section select {
+  appearance: none; /* Removes default dropdown arrow */
+  -webkit-appearance: none; /* Removes default dropdown arrow in Safari */
+  -moz-appearance: none; /* Removes default dropdown arrow in Firefox */
+  padding-right: 1.5em; /* Adds space for custom dropdown arrow */
+}
+
+#speech-section p::after {
+  content: '▼';
+  position: absolute;
+  right: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+
+    </style>
+    <div class="main-container">
+        <aside class="sidebar">
+            <button class="sidebar-btn">
+                <img src="images/library.png" alt="Library">
+                Library
+            </button>
+            <button class="sidebar-btn">
+                <img src="images/chat.png" alt="Chat">
+                Chat
+            </button>
+            <button class="sidebar-btn">
+                <img src="images/doc.png" alt="Doc Create">
+                Doc Create
+            </button>
+            <button class="sidebar-btn">
+                <img src="images/help.png" alt="Help">
+                Help
+            </button>
+        </aside>
+        <main class="content">
+            <div class="chat-wrapper">
+                <div class="chat-container" id="chat-container">
+                    <div id="chat-area" class="chat-area">
+                        
+                    </div>
+                </div>
+                <div class="search-bar">
+                    <button class="attach-icon">
+                        <img src="images/attach.png" alt="Attach">
+                    </button>
+                    <textarea placeholder="Ask or search..." id="search-input"></textarea>
+                    <button class="send-button" id="send-button">
+                        <img src="images/up.png" alt="Send">
+                    </button>
+                </div>
+            </div>
+        </main>
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="user-profile">
+                    <img src="images/notification.png" alt="Notification" class="notification-icon">
+                    <div class="profile-dropdown">
+                        <img src="images/usericon.png" alt="User" class="user-icon" id="profile-button">
+                        <div class="dropdown-content" id="dropdown-content">
+                            <a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#"><i class="fas fa-arrow-up"></i> Upgrade</a>
+                            <a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <!-- Additional content like notifications and buttons will go here -->
+            </div>
+        </div>
+        
+        <div id="settings-popup" class="settings-popup" style="display: none;">
+            <div class="settings-content">
+                <span class="close-button" id="close-button">&times;</span>
+                <div class="settings-sidebar">
+                    <a href="#" class="settings-tab active" id="general-tab" data-section="general-section"><i class="fas fa-cog"></i> General</a>
+                    <a href="#" class="settings-tab" id="subscription-tab" data-section="subscription-section"><i class="fas fa-user-cog"></i> Subscription</a>
+                    <a href="#" class="settings-tab" id="speech-tab" data-section="speech-section"><i class="fas fa-microphone-alt"></i> Speech</a>
+                    <a href="#" class="settings-tab" id="profile-tab" data-section="profile-section"><i class="fas fa-id-card-alt"></i> Profile</a>
+                    <a href="#" class="settings-tab" id="connected-apps-tab" data-section="connected-apps-section"><i class="fas fa-link"></i> Connected Apps</a>
+                    <a href="#" class="settings-tab" id="help-tab" data-section="help-section"><i class="fas fa-question-circle"></i> Help</a>
+                </div>
+                <div class="settings-main">
+                    <div class="settings-section active" id="general-section">
+                        <h3>General</h3>
+                        <p>Theme: <select><option>System</option><option>Light</option><option>Dark</option></select></p>
+                        <p><label><input type="checkbox"> Always show code when using data analyst</label></p>
+                        <p class="language-dropdown">
+                            Language:
+                            <select>
+                              <option>Auto-detect</option>
+                              <option>English</option>
+                              <option>Spanish</option>
+                            </select>
+                          </p>
+                    </div>
+                    <div class="settings-section" id="personalization-section" style="display: none;">
+                        <h3>Personalization</h3>
+                    </div>
+                    <div class="settings-section" id="speech-section" style="display: none;">
+                        <h3>Speech</h3>
+                        <p>Voice:
+                          <select>
+                            <option>Juniper</option>
+                            <option>Cove</option>
+                            <option>Ember</option>
+                            <option>Breeze</option>
+                          </select>
+                        </p>
+                    </div>
+                    <div class="settings-section" id="profile-section" style="display: none;">
+                        <h3>Profile</h3>
+                        <div id="profile-info">
+                            <p>Name: <input type="text" value="John Doe"></p>
+                            <p>Email: <input type="email" value="johndoe@example.com" readonly></p>
+                            <button id="change-email-button" style="padding: 10px 20px; color: #000000; border: none; cursor: pointer; border-radius: 5px; margin-bottom: 10px;">Change Email</button>
+        <br>
+        <button id="change-password-button" style="padding: 10px 20px; color: #000000; border: none; cursor: pointer; border-radius: 5px; margin-bottom: 10px;">Change Password</button>
+        
+                        </div>
+                        <form id="change-email-form" action="/change_email" method="POST" style="display: none;">
+                            <p>Old Email: <input type="email" value="johndoe@example.com" readonly></p>
+                            <p>New Email: <input type="email" name="new_email" required></p>
+                            <p><button type="submit" style="padding: 10px 20px;  color: #000000; border: none; cursor: pointer; border-radius: 5px; margin-bottom: 10px;">Update Email</button></p>
+                        </form>
+                        <form id="change-password-form" action="/change_password" method="POST" style="display: none;">
+                            <p>Old Password: <input type="password" name="old_password" required></p>
+                            <p>New Password: <input type="password" name="new_password" required></p>
+                            <p>Confirm Password: <input type="password" name="confirm_password" required></p>
+                            <p><button type="submit" style="padding: 10px 20px;  color: #000000; border: none; cursor: pointer; border-radius: 5px; margin-bottom: 10px;">Update Password</button></p>
+                        </form>
+                        <p><button onclick="logoutAllDevices()" style="padding: 10px 20px;  color: #000000; border: none; cursor: pointer; border-radius: 5px; margin-bottom: 10px;">Log out of all devices</button></p>
+                    </div>
+                    <div class="settings-section" id="connected-apps-section" style="display: none;">
+                        <h3>Connected Apps</h3>
+                        <p>Google Drive: <button class="button-connect">Connect</button></p>
+                        <p>Microsoft OneDrive (personal): <button class="button-connect">Connect</button></p>
+                        <p>Microsoft OneDrive (work/school): <button class="button-connect">Connect</button></p>
+                    </div>
+                    <div class="settings-section" id="subscription-section" style="display: none;">
+                        <h3>Subscription</h3>
+                        <p>Subscribe to our plan:</p>
+                        <form id="subscription-form">
+                            <label>
+                                <input type="radio" name="plan" value="only-plan" checked> Our Only Plan
+                            </label>
+                            <br>
+                            <button type="button" id="subscribe-button">Subscribe</button>
+                        </form>
+                    </div>
+                    <div class="settings-section" id="help-section" style="display: none;">
+                        <h3>Help</h3>
+                        <div id="help-content">
+                            <p><a href="#" class="help-item" id="contact-us-link">Contact Us</a></p>
+                            <p><a href="#" class="help-item" id="faq-link">FAQ</a></p>
+                            <p><a href="settingshtml/privacy-policy.html" class="help-item">Privacy Policy</a></p>
+                            <p><a href="settingshtml/terms-and-conditions.html" class="help-item">Terms and Conditions</a></p>
+                            <p><a href="settingshtml/feature-requests.html" class="help-item">Feature Requests</a></p>
+                        </div>
+                        <div id="contact-us-form" style="display: none;">
+                            <form id="contact-form">
+                                <p>
+                                    <label for="email"><i></i> Email</label><br>
+                                    <input type="text" id="email" name="email" class="form-input">
+                                </p>
+                                <p>
+                                    <label for="subject"><i></i> Subject</label><br>
+                                    <input type="text" id="subject" name="subject" class="form-input">
+                                </p>
+                                <p>
+                                    <label for="message"><i></i> What do you need help with?</label><br>
+                                    <textarea id="message" name="message" class="form-textarea"></textarea>
+                                </p>
+                                <p>
+                                    <label for="attachments" style="cursor: pointer;">
+                                        <img src="Images/attach.png" alt="Attachments Icon" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;"> 
+                                    </label><br>
+                                    <input type="file" id="attachments" name="attachments" class="" accept=".jpg,.jpeg,.png,.pdf" multiple style="display: none;">
+                                </p>
+                                <div id="file-list"></div>
+                                
+                                <p>
+                                    <button type="submit" class="form-button"><i class="fas fa-arrow-right"></i></button>
+                                </p>
+                            </form>
+                        </div>
+                        <div id="faq-content" style="display: none;">
+                            <h4>Frequently Asked Questions</h4>
+                            <div class="faq-item">
+                                <p class="faq-question">What features are included in the subscription plan?
+                                    <span class="dropdown-sign">▼</span>
+                                </p>
+                                <p class="faq-answer" style="display: none; background-color: white;">Our subscription plan includes unlimited messaging, access to premium chat features, priority customer support, and more.
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">How do I sign up for a subscription?
+                                    <span class="dropdown-sign">▼</span>
+                                </p>
+                                <p class="faq-answer" style="display: none; background-color: white;">To sign up for a subscription, click on the "Subscribe" button on our homepage and follow the prompts to enter your payment information and create an account.
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">What payment methods do you accept?
+                                    <span class="dropdown-sign">▼</span>
+                                </p>
+                                <p class="faq-answer" style="display: none; background-color: white;">We accept major credit cards such as Visa, MasterCard, American Express, and PayPal.
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">Can I try the service before subscribing?
+                                    <span class="dropdown-sign">▼</span>
+                                </p>
+                                <p class="faq-answer" style="display: none; background-color: white;">Yes, we offer a 7-day free trial for new users to explore our features before committing to a subscription.
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">How do I cancel my subscription?
+                                    <span class="dropdown-sign">▼</span>
+                                </p>
+                                <p class="faq-answer" style="display: none; background-color: white;">To cancel your subscription, go to your account settings and click on the "Cancel Subscription" button. You will continue to have access until the end of your current billing cycle.
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">What happens if my payment fails?
+                                    <span class="dropdown-sign">▼</span>
+                                </p>
+                                <p class="faq-answer" style="display: none; background-color: white;">If your payment fails, you will receive an email notification, and your account will be placed on hold until the payment issue is resolved. You can update your payment information in your account settings.
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">Do you offer refunds?
+                                    <span class="dropdown-sign">▼</span>
+                                </p>
+                                <p class="faq-answer" style="display: none; background-color: white;">We do not offer refunds for subscription fees. However, if you encounter any issues, please contact our support team, and we will do our best to assist you.
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">Is my data secure?
+                                    <span class="dropdown-sign">▼</span>
+                                </p>
+                                <p class="faq-answer" style="display: none; background-color: white;">Yes, we use industry-standard security measures to protect your data. All communications are encrypted, and we do not share your information with third parties.
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">How do I contact customer support?
+                                    <span class="dropdown-sign">▼</span>
+                                </p>
+                                <p class="faq-answer" style="display: none; background-color: white;">You can contact our customer support team by clicking on the "Help" button in the app or by sending an email to via the contact us page under help. Our team is available 24/7 to assist you
+                                </p>
+                            </div>
+                            <p><a href="#" id="back-to-help-from-faq" class="back-link"><i class="fas fa-arrow-left"></i></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            
+        </script>
+</body>
+</html>

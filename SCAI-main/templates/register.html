@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+      body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+.login-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    overflow-y: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+.login-box::-webkit-scrollbar {
+    display: none;  /* For Chrome, Safari, and Opera */
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.logo p {
+    margin: 0;
+    font-size: 12px;
+    color: #777;
+}
+
+h2 {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+p {
+    font-size: 14px;
+    color: #555;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form label {
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+}
+
+form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 50px; /* Rounded edges */
+    font-size: 14px;
+    width: 100%; /* Set input width to 100% */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50px; /* Rounded edges */
+    cursor: pointer;
+    width: 100%; /* Set button width to 100% */
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.social-login button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 50px; /* Rounded edges */
+    cursor: pointer;
+    width: 100%;
+    height: 40px; /* Adjusted height */
+}
+
+.social-login button:hover {
+    background-color: #e0e0e0;
+}
+
+.background-image {
+    display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .main-container {
+        flex-direction: row;
+        height: 100%;
+    }
+
+    .login-box {
+        flex: 1;
+        max-width: 50%;
+        margin: 0;
+    }
+
+    .background-image {
+        display: block;
+        flex: 1;
+        background-size: cover;
+        opacity: 0.5;
+        height: 100%;
+        width: 50%; /* Ensure it takes up 50% of the width */
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-container {
+        flex-direction: row;
+        height: 100%;
+    }
+
+    .login-box {
+        padding: 30px;
+        width: 25%;
+    }
+
+    .background-image {
+        display: block;
+        flex: 3;
+        background-size: cover;
+        opacity: 0.5;
+        height: 100%;
+    }
+
+    .logo img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .logo h1 {
+        font-size: 28px;
+    }
+
+    .logo p {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    form label {
+        font-size: 16px;
+    }
+
+    form input {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    form button {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .social-login button {
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+.main-container::before {
+    content: '';
+    position: absolute;
+    left: 305px; /* Start background image 305px from the left */
+    top: 0;
+    width: calc(100% - 305px); /* Cover the rest of the screen */
+    height: 100%;
+    background: url('../static/img/background.png') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.5; /* 50% opacity */
+    z-index: -1; /* Place behind the content */
+}
+
+@media (max-width: 767px) {
+    .main-container::before {
+        display: none; /* Hide on devices smaller than 768px (mobile) */
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .main-container::before {
+        display: block; /* Show on iPads */
+        width: 50%; /* Cover half the screen */
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="/static/img/library.png" alt="SCAI Logo">
+                <h1>SCAI</h1>
+                <p>Standards & Codes Ai</p>
+            </div>
+            <h2>Welcome!</h2>
+            <p>Please create an account to start using SCAI.</p>
+            <form method="post" action="{{ url_for('register') }}">
+                <label for="first">First Name</label>
+                <input type="text" id="first" name="first" placeholder="John" required>
+                
+                <label for="last">Last Name</label>
+                <input type="text" id="last" name="last" placeholder="Doe" required>
+                
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="johndoe" required>
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+                
+                
+                <div>
+                    <label><input type="checkbox" > I agree to the <a href="{{ url_for('terms') }}">Terms and Conditions</a></label>
+                </div>
+                <button type="submit">Sign Up</button>
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+                {% if error %}
+                    <p class="error">{{ error }}</p>
+                {% endif %}
+            </form>
+            <div class="social-login">
+                <button onclick="location.href='google_auth_url'">Google Login</button>
+            </div>
+        </div>
+        <div class="background-image"></div>
+    </div>
+</body>
+</html>

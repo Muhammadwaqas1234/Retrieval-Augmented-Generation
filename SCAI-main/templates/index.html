@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Chat Interface</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/settingscss/settingsmenu.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/settingsjs/settingsmenu.js" defer></script>
+    <style>
+        body {
+    font-family:   Georgia, serif;;
+    background-color: #ffff;
+    margin: 0;
+    padding: 1rem;
+    padding-top: 1.5rem;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Disable scrolling */
+    
+}
+.chat-container {
+    border-radius: 1rem;
+    background-color: #fff;
+    height: calc(94vh - 110px); 
+    overflow-y: auto; 
+    margin: 0 auto;
+    overflow-x: auto; 
+  overflow-wrap: break-word; 
+   padding-top: 15px;
+   margin-bottom: 1%;
+      
+}
+
+
+
+
+
+@media (max-width: 576px) {
+    .chat-container {
+        width: 100%; /* Full width on mobile */
+        max-width: none; /* No maximum width */
+        margin: 0 auto; /* Center the container horizontally */
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+}
+
+/* For tablets (between 577px and 992px) */
+@media (min-width: 577px) and (max-width: 992px) {
+    .chat-container {
+        width: 90%; /* 90% width on tablets */
+        max-width: none; /* No maximum width */
+        padding: 1.5rem; /* Adjust padding as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+}
+
+
+
+/* For laptops and desktops (992px and above) */
+@media (min-width: 993px) {
+    .chat-container {
+        width: 750px; /* Specific width for laptops/desktops */
+        max-width: 100%; /* Allow container to be smaller than 750px if needed */
+        padding: 2rem; /* Adjust padding as needed */
+        margin: 0 auto; /* Center the container horizontally */
+    }
+}
+#user-message {
+    background-color: #f0f4f9; /* Light blue background for user messages */
+    padding: 18px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-left: 2%;
+}
+
+#response-message { 
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+.additional-question {
+    position: relative;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden; /* Ensure relative positioning for the ::after pseudo-element */
+    list-style-type: none;
+    background-color: #f4f5f5;
+
+}
+.additional-question::before {
+    content: " "; /* Empty content to avoid showing "Additional Question:" */
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Ensure it's above the actual content */
+   
+}
+.additional-question p {
+    margin: 0px; /* Remove default margin for paragraph */
+    z-index: 2; /* Ensure it's below the pseudo-element */
+   
+}
+.additional-question::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px; /* Adjust the height of the line as needed */
+    background-color:  #7b7777; /* Black color for the line */
+}
+
+#history-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    padding: 20px;
+    background-color:  #ffffff; 
+    border-right: 1px solid #ffffff;
+    z-index: 1000;
+    padding-left: 0%;
+    
+}
+.sidebar-opened #history-sidebar {
+    display: block;
+}
+.input-group {
+    width: 100%; /* Set width for the input group */
+    display: flex;
+    align-items: center;
+    
+}
+.input-group {
+    position: relative; /* Set position to relative */
+}
+
+.form-control {
+    flex: 2; /* Use all available space */ 
+    border: 2px solid #5a5959;
+    transition: width 0.3s, border-color 0.3s;
+    height: 50px; /* Set your desired height */
+    padding: 12px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    box-sizing: border-box;
+
+}
+.form-control:focus {
+    outline: none;
+    border-color: #942bc5;
+    transition: width 0.3s, border-color 0.3s;
+}
+/* For mobile devices (up to 576px) */
+@media (max-width: 576px) {
+    .input-group {
+        margin-bottom: 60%;
+        border-radius: 20px;
+    }
+
+    .form-control {
+        width: 100%; /* Full width for form control */
+        border-radius: 20px;
+    }
+}
+
+/* For tablets (between 577px and 992px) */
+@media (min-width: 577px) and (max-width: 992px) {
+    .input-group {
+        margin-bottom: 6rem;
+        width: 100%; /* Full width on tablets */
+        border-radius: 25px;
+    }
+
+    .form-control {
+        width: 100%; /* Full width for form control */
+        border-radius: 25px;
+    }
+}
+
+/* For laptops and desktops (992px and above) */
+@media (min-width: 993px) {
+    .input-group {
+        margin-bottom: 6rem; /* Adjust margin as needed */
+        margin-left: 250px; /* Restore left margin for laptops/desktops */
+        width: calc(75% - 120px); /* Adjust width for laptops/desktops */
+        padding: 0; /* Reset padding */
+        border-radius: 25px; /* Add rounded corners */
+    }
+
+    .form-control {
+        width: calc(100% - 120px); /* Adjust width for form control */
+        margin-right: 0; /* Reset right margin */
+        border-radius: 25px; /* Add rounded corners */
+    }
+}
+
+.btn-primary {
+    background-color:  #f0f4f9; 
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: none;
+    transition: background-color 0.3s, border-color 0.3s;
+    width: 100%; /* Make buttons take full width */
+    text-align: left; /* Align button text to left */
+}
+.btn-primary:hover {
+    background-color:  #f0f4f9; 
+}
+.btn-primary1 {
+    background-color: #ffff;
+    border-radius: 20px;
+    padding: 3px 3px;
+    border: none;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.btn-link {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.btn-link:hover {
+    text-decoration: underline;
+    color: #2980b9;
+}
+.footer-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+#open-sidebar-btn {
+    position: fixed;
+    top: 3px;
+    left: 3px;
+    z-index: 1000;
+}
+.close-sidebar-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.sidebar-opened .form-control {
+    width: 50px;
+}
+#new {
+    padding-top: 10dvh;
+}
+#account {
+    padding-top: 20dvh;
+}
+#button-container {
+    position: absolute; /* Position the button container absolutely */
+    right: 0; /* Align to the right */
+    top: 50%; /* Align vertically to the middle */
+    transform: translateY(-50%); /* Adjust vertical alignment */
+}
+
+.user-message {
+    background-color: #e0f7fa; /* Light blue color */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#voice-command-button,
+#send-button {
+    margin-left: 5px; /* Add margin between buttons */
+    border-radius: 20px; /* Add border radius to buttons */
+}
+
+.form-control {
+    padding-right: 100px; /* Add space on the right for the buttons */
+}
+
+#send-button {
+    display: inline-block; /* Ensure the button is displayed inline */
+}
+#audio-container {
+            margin-top: 20px;
+        }
+        #audio-player {
+            display: none; /* Hide by default */
+        }
+        #listen-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+/* Styles for loading animation */
+#loading-animation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px; /* Increase margin for better spacing */
+}
+
+.dot {
+    width: 15px; /* Increase dot size for better visibility */
+    height: 15px; /* Increase dot size for better visibility */
+    background-color: #666666;
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: bounce 1.5s infinite ease-in-out;
+    opacity: 0.5; /* Reduce opacity to make dots less dominant */
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s; /* Add delay for the second dot */
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s; /* Add delay for the third dot */
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px); /* Increase bounce height */
+    }
+}
+.LOGO {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+    }
+
+    .dropdowns {
+  position: absolute;
+  left: 95%;
+  transform: translateX(-50%);
+  top: 2%;
+  background-color: white; /* Set the background color to pure white */
+  color: rgb(250, 246, 246);
+}
+
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+             background-color: #ffffff;
+            min-width: 150px;
+            
+            z-index: 1;
+            right: 0; /* Adjust this to position on the left side */
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content a {
+            color: rgb(4, 4, 4);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .settings-popup {
+    display: none; /* Ensure it's initially hidden */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-content {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 50px;
+    width: 80%;
+    max-width: 600px;
+    display: flex;
+    position: relative;
+}
+
+.close-button {
+    color: #555;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.settings-sidebar {
+    width: 200px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+}
+
+.settings-sidebar a {
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    color: black;
+    margin-bottom: 10px;
+    transition: color 0.3s, border-bottom 0.3s;
+    position: relative;
+}
+
+.settings-sidebar a.active::after,
+.settings-sidebar a:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0%;
+    width: 50%;
+    height: 2px;
+    background-color: black;
+}
+
+.settings-main {
+    flex-grow: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-section {
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+.help-item {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+    margin: 5px 0;
+    position: relative;
+}
+
+.help-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s;
+}
+
+.help-item:hover::after {
+    width: 38%;
+}
+
+.help-item:hover {
+    color: black;
+}
+
+.security-item {
+    color: black;
+    cursor: pointer;
+    display: block;
+    margin: 5px 0;
+    position: relative;
+    padding: 10px 0;
+}
+
+.security-item:hover {
+    color: black;
+}
+
+select,
+input[type="checkbox"] {
+    display: inline-block;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: black;
+    padding: 5px 0;
+}
+
+select {
+    appearance: none;
+    padding-right: 20px;
+    background-image: url('data:image/svg+xml;base64,...'); /* Add your own arrow icon */
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+
+select:hover,
+input[type="checkbox"]:hover {
+    color: black;
+}
+
+.button-connect {
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.button-connect:hover {
+    color: black;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-button {
+    float: right;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: rgb(3, 3, 3);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-button i {
+    margin-right: 5px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #030303;
+    text-decoration: none;
+}
+
+.back-link i {
+    margin-right: 5px;
+}
+
+.language-dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.language-dropdown select {
+    appearance: none; /* Removes default dropdown arrow */
+    -webkit-appearance: none; /* Removes default dropdown arrow in Safari */
+    -moz-appearance: none; /* Removes default dropdown arrow in Firefox */
+    padding-right: 1.5em; /* Adds space for custom dropdown arrow */
+}
+
+.language-dropdown::after {
+    content: '▼';
+    position: absolute;
+    right: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+#speech-section p {
+    display: inline-block;
+    position: relative;
+}
+
+#speech-section select {
+    appearance: none; /* Removes default dropdown arrow */
+    -webkit-appearance: none; /* Removes default dropdown arrow in Safari */
+    -moz-appearance: none; /* Removes default dropdown arrow in Firefox */
+    padding-right: 1.5em; /* Adds space for custom dropdown arrow */
+}
+
+#speech-section p::after {
+    content: '▼';
+    position: absolute;
+    right: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-button {
+    float: right;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: rgb(3, 3, 3);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-button i {
+    margin-right: 5px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #030303;
+    text-decoration: none;
+}
+
+.back-link i {
+    margin-right: 5px;
+}
+
+.language-dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.language-dropdown select {
+    appearance: none; /* Removes default dropdown arrow */
+    -webkit-appearance: none; /* Removes default dropdown arrow in Safari */
+    -moz-appearance: none; /* Removes default dropdown arrow in Firefox */
+    padding-right: 1.5em; /* Adds space for custom dropdown arrow */
+}
+
+.language-dropdown::after {
+    content: '\f063'; /* Unicode for Font Awesome down arrow */
+    font-family: 'Font Awesome 5 Free'; /* Font Awesome family */
+    font-weight: 900; /* Font Awesome solid style */
+    position: absolute;
+    right: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+#speech-section p {
+    display: inline-block;
+    position: relative;
+}
+
+#speech-section select {
+    appearance: none; /* Removes default dropdown arrow */
+    -webkit-appearance: none; /* Removes default dropdown arrow in Safari */
+    -moz-appearance: none; /* Removes default dropdown arrow in Firefox */
+    padding-right: 1.5em; /* Adds space for custom dropdown arrow */
+}
+
+#speech-section p::after {
+    content: '\f063'; /* Unicode for Font Awesome down arrow */
+    font-family: 'Font Awesome 5 Free'; /* Font Awesome family */
+    font-weight: 900; /* Font Awesome solid style */
+    position: absolute;
+    right: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+#profile-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+#profile-section h3 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+#profile-section p {
+    margin-bottom: 10px;
+    color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+
+#profile-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+#profile-section h3 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+#profile-section p {
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+#profile-section input[type="text"],
+#profile-section input[type="email"],
+#profile-section input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#profile-section button {
+    padding: 10px 20px;
+    color: #000000;
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#profile-section button:hover {
+    background-color: #ffffff;
+}
+
+#profile-section form p {
+    margin-bottom: 15px;
+}
+
+#file-list .file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+#file-list .remove-button {
+    color: #000000;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#file-list .remove-button:hover {
+    color: #000000;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    position: relative; /* For dropdown positioning */
+}
+
+.notification-icon {
+    height: 28px; /* Same size as user icon for consistency */
+    width: 28px; /* Same size as user icon for consistency */
+    cursor: pointer;
+    margin-right: 60px; /* Adjust margin to move icon to the left */
+}
+
+.user-icon {
+    height: 28px; /* 30% smaller */
+    width: 28px; /* 30% smaller */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.profile-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.right-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    flex-basis: 0;
+}
+
+.profile-section {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 150px; /* Adjust the width as needed */
+    height: 25vh; /* Full height */
+    z-index: 1000; /* Ensure it appears on top */
+    overflow-y: auto; /* Scroll if content overflows */
+}
+
+.profile-header {
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Optional: separation */
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notification-icon {
+    cursor: pointer;
+    margin-right: 10px; /* Decrease the margin to create less space */
+}
+
+.user-icon {
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    position: relative;
+}
+
+@media (max-width: 600px) {
+    #profile-section {
+        padding: 10px;
+        max-width: 100%;
+        margin: 10px;
+    }
+
+    #profile-section input[type="text"],
+    #profile-section input[type="email"],
+    #profile-section input[type="password"] {
+        width: calc(100% - 12px);
+        padding: 8px;
+    }
+
+    #profile-section button {
+        padding: 8px 16px;
+    }
+
+    #file-list .file-item {
+        padding: 3px;
+    }
+
+    #file-list .remove-button {
+        font-size: 16px;
+    }
+
+    .notification-icon,
+    .user-icon {
+        height: 24px;
+        width: 24px;
+    }
+
+    .dropdown-content {
+        min-width: 120px;
+    }
+
+    .right-content {
+        padding: 0.5rem;
+    }
+}
+
+
+.custom-modal .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .custom-modal .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 30px;
+            box-sizing: border-box;
+        }
+        .custom-modal .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .custom-modal .close:hover,
+        .custom-modal .close:focus {
+            color: rgb(24, 23, 23);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .custom-modal .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: white;
+        }
+        .custom-modal .btn-open {
+            color: black;
+        }
+        .custom-modal .btn-select {
+            color: black;
+        }
+        .custom-modal .btn-upload {
+            color: black;
+        }
+        .custom-modal .hidden-input {
+            display: none;
+        }
+        .custom-modal .icon {
+            margin-right: 5px;
+            width: 20px;
+            height: 20px;
+        }
+        .custom-modal .file-list {
+            margin-top: 10px;
+            list-style-type: none;
+            padding: 0;
+        }
+        .custom-modal .file-list li {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+
+
+<body class="sidebar-opened">
+    
+       
+        
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-8">
+                <div id="history-sidebar">
+                    <h5>Chat History</h5>
+                    <button class="close-sidebar-btn btn btn-primary" id="cross" style="background-color: white; width: 100%; text-align: left; padding: 10px; margin-bottom: 5px;border-radius: 0;">
+                        <img src="/static/img/cross-removebg-preview.png" alt="Close Sidebar" style="width: 18px; height: 18px; float: right;">
+                    </button>
+                    <button class="btn btn-primary mt-3" id="clear-history-btn" style="background-color: white;  width: 100%; text-align: left; padding: 10px; margin-bottom: 5px;border-radius: 0;">
+                        <img src="/static/img/chat-removebg-preview.png" alt="Clear History" style="width:25px; height: 25px; margin-right: 10px; font-family: Arial, sans-serif;">
+                        New Chat
+                    </button>
+                    <button class="btn btn-primary mt-3" onclick="window.location.href='history.html'" style="background-color: white;  width: 100%; text-align: left; padding: 10px; margin-bottom: 5px; display: flex; align-items: center ;border-radius: 0;">
+                        <img src="/static/img/library.png" alt="" style="width:25px; height: 25px; margin-right: 10px;">
+                        <a href="{{ url_for('history') }}" style="color: #000; text-decoration: none;">Library</a>
+                    </button>
+                    
+                    <div class="custom-modal">
+                        <button id="openModalBtn" class="btn btn-primary mt-3" style="background-color: white;  width: 100%; text-align: left; padding: 10px; margin-bottom: 5px; display: flex; align-items: center ;border-radius: 0;">
+                            
+                            <img src="/static/img/attach.png" class="icon" alt="Upload Icon" style="width:25px; height: 25px; margin-right: 10px;">Upload File
+                        </button>
+                
+                       
+                        <div id="uploadModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                
+                                <form id="uploadForm" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                                    <input type="file" id="fileInput" name="file" multiple class="hidden-input" onchange="updateFileList()">
+                                    <button type="button" class="btn btn-select" onclick="document.getElementById('fileInput').click();">
+                                        <img src="/static/img/addl.png" class="icon" alt="Select Files Icon">Select Files
+                                    </button>
+                                    <ul id="fileList" class="file-list"></ul>
+                                    <button type="submit" class="btn btn-upload">
+                                        <img src="/static/img/up.png" class="icon" alt="Upload Icon">Upload Files
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    <button class="btn btn-primary mt-3" onclick="upgrade()" style="background-color: white;  width: 100%; text-align: left; padding: 10px; margin-bottom: 5px; display: flex; align-items: center;border-radius: 0;">
+                        <img src="/static/img/help.png" alt="" style="width:28px; height: 30px; margin-right: 10px;">
+                        <a href="{{ url_for('support') }}" style="color: #000; text-decoration: none;">Help</a>
+                    </button>
+                    
+                    
+                    
+                    <form id="logout-form-1" action="{{ url_for('logout') }}" method="POST" style="display: inline;">
+                        <button class="btn btn-primary mt-3" style="background-color: white; width: 100%; text-align: left; padding: 10px; margin-bottom: 5px; display: flex; align-items: center; border-radius: 0;">
+                            <img src="/static/img/images__2_-removebg-preview.png" alt="" style="width:25px; height: 25px; margin-right: 10px;">
+                            <span style="color: #000; text-decoration: none;">Logout</span>
+                        </button>
+                    </form>
+                    
+                    
+                    
+                </div>
+                  
+            </div>
+
+
+
+
+            <div class="col-lg-4 col-md-6 col-sm-8">
+                <div class="chat-container">
+                    <div id="chat-messages"></div>
+                    <div id="loading-animation" style="display: none;">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    
+                </div>
+                <div id="fixed-question-container">
+                    <form id="chat-form" class="mb-3">
+                        <div class="input-group">
+                            <input type="text" id="user-input" class="form-control" placeholder="Ask or search..." >
+                            <div id="button-container">
+                                <button type="button" id="voice-command-button" class="btn btn-primary" style="background-color: transparent; ">
+                                    <img src="/static/img/voice-removebg-preview final.png" alt="voice-command-button" style="width: 18px; height: 25px; margin-right: 5px;">
+                                  </button>
+                                  
+                                <button type="submit" id="send-button" class="btn btn-primary" style="display: none;background-color: transparent;">
+                                    <img src="/static/img/up.png" alt="voice-command-button" style="width: 38px; height: 30px; margin-right: 0px;">
+                                </button>
+                            </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="open-sidebar-btn" class="btn btn-primary1"style="padding: 3px;"><img src="/static/img/icon-removebg-preview (1).png" alt="open sidebar " style="height: 40px; width: 40px;">
+        
+    </button>    
+    <div class="footer-buttons">
+        <button id="close-sidebar-btn" class="btn btn-primary" style="display: none;"><img src="/static/img/cross.png" alt="Close Sidebar"></button>
+    </div>
+
+    <div class="main-container">
+        
+    </main>
+    <div class="profile-section">
+        <div class="profile-header">
+            <div class="user-profile">
+                <img src="/static/img/notification.png" alt="Notification" class="notification-icon">
+                <div class="profile-dropdown">
+                    <img src="/static/img/usericon.png" alt="User" class="user-icon" id="profile-button">
+                    <div class="dropdown-content" id="dropdown-content">
+                        <a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="{{ url_for('subscribe') }}"><i class="fas fa-arrow-up"></i> Upgrade</a>
+                        <form id="logout-form-2" action="{{ url_for('logout') }}" method="POST" style="display: inline;">
+                            <a href="#" onclick="document.getElementById('logout-form-2').submit();" style="text-decoration: none; color: inherit;">
+                                <i class="fas fa-sign-out-alt"></i> Log Out
+                            </a>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-content">
+            
+        </div>
+    </div>
+    
+    <div id="settings-popup" class="settings-popup" style="display: none;">
+        <div class="settings-content">
+            <span class="close-button" id="close-button">&times;</span>
+            <div class="settings-sidebar">
+                <a href="#" class="settings-tab active" id="general-tab" data-section="general-section"><i class="fas fa-cog"></i> General</a>
+                <a href="#" class="settings-tab" id="subscription-tab" data-section="subscription-section"><i class="fas fa-user-cog"></i> Subscription</a>
+                <a href="#" class="settings-tab" id="speech-tab" data-section="speech-section"><i class="fas fa-microphone-alt"></i> Speech</a>
+                <a href="#" class="settings-tab" id="profile-tab" data-section="profile-section"><i class="fas fa-id-card-alt"></i> Profile</a>
+                <a href="#" class="settings-tab" id="connected-apps-tab" data-section="connected-apps-section"><i class="fas fa-link"></i> Connected Apps</a>
+                <a href="#" class="settings-tab" id="help-tab" data-section="help-section"><i class="fas fa-question-circle"></i> Help</a>
+            </div>
+            <div class="settings-main">
+                <div class="settings-section active" id="general-section">
+                    <h3>General</h3>
+                    <p>Theme: <select><option>System</option><option>Light</option><option>Dark</option></select></p>
+                    <p><label><input type="checkbox"> Always show code when using data analyst</label></p>
+                    <p class="language-dropdown">
+                        Language:
+                        <select id="language-select" onchange="saveLanguagePreference()">
+                            <option value="auto">Auto-detect</option>
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="settings-section" id="personalization-section" style="display: none;">
+                    <h3>Personalization</h3>
+                </div>
+                <div class="settings-section" id="speech-section" style="display: none;">
+                    <h3>Speech</h3>
+                    <p>Voice:
+                      <select>
+                        <option>Juniper</option>
+                        <option>Cove</option>
+                        <option>Ember</option>
+                        <option>Breeze</option>
+                      </select>
+                    </p>
+                </div>
+                <div class="settings-section" id="profile-section" style="display: none;">
+                    <h3>Profile</h3>
+                    <div id="profile-info">
+                        <p>Name: <input type="text" value="{{ user.first_name }} {{ user.last_name }}"></p>
+                        <p>Email: <input type="email" value="{{ user.email }}" readonly></p>
+                        <button id="change-email-button">Change Email</button>
+                        <br>
+                        <button id="change-password-button">Change Password</button>
+                        <p><button onclick="logoutAllDevices()">Log out of all devices</button></p>
+                    </div>
+                    <form id="change-email-form" action="{{ url_for('change_email') }}" method="POST" style="display: none;">
+                        <p>Old Email: <input type="email" value="{{ user.email }}" readonly></p>
+                        <p>New Email: <input type="email" name="new_email" required></p>
+                        <p><button type="submit">Update Email</button></p>
+                        <button type="button" class="back-button">←</button>
+                    </form>
+                    <form id="change-password-form" action="{{ url_for('change_password') }}" method="POST" style="display: none;">
+                        <p>Old Password: <input type="password" name="current_password" required></p>
+                        <p>New Password: <input type="password" name="new_password" required></p>
+                        <p>Confirm Password: <input type="password" name="confirm_password" required></p>
+                        <p><button type="submit">Update Password</button></p>
+                        <button type="button" class="back-button">←</button>
+                    </form>
+                    
+                </div>
+                
+                
+                <div class="settings-section" id="connected-apps-section" style="display: none;">
+                    <h3>Connected Apps</h3>
+                    <p>Google Drive: <button class="button-connect">Connect</button></p>
+                    <p>Microsoft OneDrive (personal): <button class="button-connect">Connect</button></p>
+                    <p>Microsoft OneDrive (work/school): <button class="button-connect">Connect</button></p>
+                </div>
+                <div class="settings-section" id="subscription-section" style="display: none;">
+                    <h3>Subscription</h3>
+                    <p>Subscribe to our plan:</p>
+                    <form id="subscription-form">
+                        <label>
+                            <input type="radio" name="plan" value="only-plan" checked> Our Only Plan
+                        </label>
+                        <br>
+                        <button type="button" id="subscribe-button">Subscribe</button>
+                    </form>
+                </div>
+                
+                <div class="settings-section" id="help-section" style="display: none;">
+                    <h3>Help</h3>
+                    <div id="help-content">
+                        <p><a href="#" class="help-item" id="contact-us-link">Contact Us</a></p>
+                        <p><a href="#" class="help-item" id="faq-link">FAQ</a></p>
+                        <p><a href="{{ url_for('privacy') }}" class="help-item">Privacy Policy</a></p>
+                        <p><a href="{{ url_for('condition') }}" class="help-item">Terms and Conditions</a></p>
+                        <p><a href="settingshtml/feature-requests.html" class="help-item">Feature Requests</a></p>
+                    </div>
+                    <div id="contact-us-form" style="display: none;">
+                        
+                            <form id="contact-form">
+                                <p>
+                                    <label for="email"><i></i> Email</label><br>
+                                    <input type="text" id="email" name="email" class="form-input">
+                                </p>
+                                <p>
+                                    <label for="subject"><i></i> Subject</label><br>
+                                    <input type="text" id="subject" name="subject" class="form-input">
+                                </p>
+                                <p>
+                                    <label for="message"><i></i> What do you need help with?</label><br>
+                                    <textarea id="message" name="message" class="form-textarea"></textarea>
+                                </p>
+                                <p>
+                                    <label for="attachments" style="cursor: pointer;">
+                                        <img src="/static/img/attach.png" alt="Attachments Icon" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                                    </label><br>
+                                    <input type="file" id="attachments" name="attachments" class="" accept=".jpg,.jpeg,.png,.pdf" multiple style="display: none;">
+                                </p>
+                                <div id="file-list"></div>
+                                <p>
+                                    <button type="submit" class="form-button"><i class="fas fa-arrow-right"></i></button>
+                                </p>
+                            </form>
+                        </div>
+                    
+                    <div id="faq-content" style="display: none;">
+                        <h4>Frequently Asked Questions</h4>
+                        <div class="faq-item">
+                            <p class="faq-question">What features are included in the subscription plan?
+                                <span class="dropdown-sign"><i class="fas fa-arrow-down"></i></span>
+                            </p>
+                            <p class="faq-answer" style="display: none; background-color: white;">Our subscription plan includes unlimited messaging, access to premium chat features, priority customer support, and more.
+                            </p>
+                        </div>
+                        <div class="faq-item">
+                            <p class="faq-question">How do I sign up for a subscription?
+                                <span class="dropdown-sign"><i class="fas fa-arrow-down"></i></span>
+                            </p>
+                            <p class="faq-answer" style="display: none; background-color: white;">To sign up for a subscription, click on the "Subscribe" button on our homepage and follow the prompts to enter your payment information and create an account.
+                            </p>
+                        </div>
+                        <div class="faq-item">
+                            <p class="faq-question">What payment methods do you accept?
+                                <span class="dropdown-sign"><i class="fas fa-arrow-down"></i></span>
+                            </p>
+                            <p class="faq-answer" style="display: none; background-color: white;">We accept major credit cards such as Visa, MasterCard, American Express, and PayPal.
+                            </p>
+                        </div>
+                        <div class="faq-item">
+                            <p class="faq-question">Can I try the service before subscribing?
+                                <span class="dropdown-sign"><i class="fas fa-arrow-down"></i></span>
+                            </p>
+                            <p class="faq-answer" style="display: none; background-color: white;">Yes, we offer a 7-day free trial for new users to explore our features before committing to a subscription.
+                            </p>
+                        </div>
+                        <div class="faq-item">
+                            <p class="faq-question">How do I cancel my subscription?
+                                <span class="dropdown-sign"><i class="fas fa-arrow-down"></i></span>
+                            </p>
+                            <p class="faq-answer" style="display: none; background-color: white;">To cancel your subscription, go to your account settings and click on the "Cancel Subscription" button. You will continue to have access until the end of your current billing cycle.
+                            </p>
+                        </div>
+                        <div class="faq-item">
+                            <p class="faq-question">What happens if my payment fails?
+                                <span class="dropdown-sign"><i class="fas fa-arrow-down"></i></span>
+                            </p>
+                            <p class="faq-answer" style="display: none; background-color: white;">If your payment fails, you will receive an email notification, and your account will be placed on hold until the payment issue is resolved. You can update your payment information in your account settings.
+                            </p>
+                        </div>
+                        <div class="faq-item">
+                            <p class="faq-question">Do you offer refunds?
+                                <span class="dropdown-sign"><i class="fas fa-arrow-down"></i></span>
+                            </p>
+                            <p class="faq-answer" style="display: none; background-color: white;">We do not offer refunds for subscription fees. However, if you encounter any issues, please contact our support team, and we will do our best to assist you.
+                            </p>
+                        </div>
+                        <div class="faq-item">
+                            <p class="faq-question">Is my data secure?
+                                <span class="dropdown-sign"><i class="fas fa-arrow-down"></i></span>
+                            </p>
+                            <p class="faq-answer" style="display: none; background-color: white;">Yes, we use industry-standard security measures to protect your data. All communications are encrypted, and we do not share your information with third parties.
+                            </p>
+                        </div>
+                        <div class="faq-item">
+                            <p class="faq-question">How do I contact customer support?
+                                <span class="dropdown-sign"><i class="fas fa-arrow-down"></i></span>
+                            </p>
+                            <p class="faq-answer" style="display: none; background-color: white;">You can contact our customer support team by clicking on the "Help" button in the app or by sending an email to via the contact us page under help. Our team is available 24/7 to assist you
+                            </p>
+                        </div>
+                        <p><a href="#" id="back-to-help-from-faq" class="back-link"><i class="fas fa-arrow-left"></i></a></p>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("uploadModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("openModalBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Update the file list
+        function updateFileList() {
+            var input = document.getElementById('fileInput');
+            var list = document.getElementById('fileList');
+            list.innerHTML = '';
+
+            for (var i = 0; i < input.files.length; i++) {
+                var li = document.createElement('li');
+                li.textContent = input.files[i].name;
+                list.appendChild(li);
+            }
+        }
+    </script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('change-email-button').addEventListener('click', function() {
+        document.getElementById('profile-info').style.display = 'none';
+        document.getElementById('change-password-form').style.display = 'none';
+        document.getElementById('change-email-form').style.display = 'block';
+    });
+
+    document.getElementById('change-password-button').addEventListener('click', function() {
+        document.getElementById('profile-info').style.display = 'none';
+        document.getElementById('change-email-form').style.display = 'none';
+        document.getElementById('change-password-form').style.display = 'block';
+    });
+
+    document.querySelectorAll('.back-button').forEach(button => {
+        button.addEventListener('click', function() {
+            document.getElementById('profile-info').style.display = 'block';
+            document.getElementById('change-email-form').style.display = 'none';
+            document.getElementById('change-password-form').style.display = 'none';
+        });
+    });
+});
+
+function logoutAllDevices() {
+    fetch('/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = '/logout';
+        } else {
+            console.error('Failed to log out of all devices');
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+}
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('faq-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('faq-content').style.display = 'block';
+        document.getElementById('help-content').style.display = 'none';
+    });
+
+    document.getElementById('back-to-help-from-faq').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('faq-content').style.display = 'none';
+        document.getElementById('help-content').style.display = 'block';
+    });
+
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const icon = this.querySelector('.dropdown-sign i');
+            if (answer.style.display === 'none' || answer.style.display === '') {
+                answer.style.display = 'block';
+                icon.classList.remove('fa-arrow-down');
+                icon.classList.add('fa-arrow-up');
+            } else {
+                answer.style.display = 'none';
+                icon.classList.remove('fa-arrow-up');
+                icon.classList.add('fa-arrow-down');
+            }
+        });
+    });
+});
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script>
+    
+
+
+        $(document).ready(function() {
+    const $userInput = $('#user-input');
+    const $voiceButton = $('#voice-command-button');
+    const $sendButton = $('#send-button');
+    const $chatMessages = $('#chat-messages');
+    const documentSessionContainer = document.getElementById('document-session-container');
+    const $chatContainer = $('.chat-container');
+
+     
+     $('#user-input').click(function() {
+        // Check if sidebar is open and close it
+        if ($('body').hasClass('sidebar-opened')) {
+            $('body').removeClass('sidebar-opened');
+            $('#open-sidebar-btn').show();
+            $('.close-sidebar-btn').hide();
+            adjustInputWidth(); // Adjust input width if needed
+        }
+    });
+    function clearChatHistory() {
+        $('#chat-messages').empty(); // Clear the chat messages container
+        localStorage.removeItem('chatHistory'); // Remove chat history from local storage
+    }
+    
+    // Event listener for the Clear History button click
+    $('#clear-history-btn').click(function() {
+        clearChatHistory(); // Call function to clear chat history
+    });
+
+    function handleAdditionalQuestionClick(question) {
+        $userInput.val(question);
+        sendMessage();
+    }
+    function appendAdditionalQuestion(question) {
+    const additionalQuestionElement = $('<div class="additional-question"></div>').text(question);
+    additionalQuestionElement.on('click', function() {
+        $userInput.val(question);
+        sendMessage();
+    });
+    $chatMessages.append(additionalQuestionElement);
+    
+    
+}
+   
+
+
+    // Function to handle backend response
+    function handleResponse(response) {
+        const { response_text, additional_questions, audio_data, document_session } = response;
+
+         // Display the response text in the chat interface
+         appendMessage('assistant', response_text, 'response');
+          // Check if audio data is available
+    if (audio_data) {
+        // Create an audio element
+        const audioElement = document.createElement('audio');
+        audioElement.setAttribute('controls', ''); // Add controls for playback
+        audioElement.src = 'data:audio/wav;base64,' + audio_data; // Set audio source
+        audioElement.style.display = 'none'; // Hide the audio player initially
+
+        // Create a button to trigger audio playback
+        const audioButton = document.createElement('button');
+        audioButton.id = 'listen-btn'; // Set button id for styling
+
+        // Create an image element for the button
+        const audioImage = document.createElement('img');
+        audioImage.src = '/static/img/WhatsApp Image 2024-05-22 at 02.14.16_6f498517.jpg'; 
+        audioImage.alt = 'Listen to Audio'; 
+        audioImage.style.width = '38px';
+        audioImage.style.height = '30px'; 
+        audioImage.style.marginRight = '0px'; 
+        let isPlaying = false; 
+        audioButton.appendChild(audioImage); 
+        audioButton.addEventListener('click', function() {
+            if (!isPlaying) {
+                audioElement.play(); 
+                audioImage.src = '/static/img/WhatsApp Image 2024-05-22 at 02.14.16_6f498517.jpg'; 
+                audioImage.alt = 'Pause the Audio'; 
+                isPlaying = true; 
+            } else {
+                audioElement.pause(); 
+                audioImage.src = '/static/img/WhatsApp Image 2024-05-22 at 02.14.16_6f498517.jpg'; 
+                audioImage.alt = 'Listen to Audio'; 
+                isPlaying = false; 
+            }
+        });
+
+
+
+        // Append the audio button and audio element to the chat interface
+        $chatMessages.append(audioButton);
+        $chatMessages.append(audioElement);
+        scrollChatContainerToBottom();
+    }
+    
+   
+    
+        
+       if (additional_questions && additional_questions.length > 0) {
+            additional_questions.forEach((question) => {
+                appendAdditionalQuestion(question);
+            });
+        }
+
+
+ // Create a button element
+const button = document.createElement('button');
+button.innerHTML = '<img src="/static/img/png-transparent-computer-icons-book-book-cover-angle-recycling-logo-thumbnail-removebg-preview.png" alt="Reference" style="width:30px;height: 30px;">';
+
+// Variable to keep track of the document session display state
+let isDocumentSessionVisible = false;
+let documentSessionElement = null;
+
+button.addEventListener('click', function() {
+    if (isDocumentSessionVisible) {
+        // Hide the document session content
+        if (documentSessionElement) {
+            documentSessionElement.remove();
+            documentSessionElement = null;
+        }
+    } else {
+        // Display the document session content in the response area
+        if (document_session) {
+            documentSessionElement = document.createElement('div');
+            documentSessionElement.classList.add('response');
+            documentSessionElement.textContent = document_session;
+            $chatMessages.append(documentSessionElement);
+        }
+    }
+    // Toggle the document session display state
+    isDocumentSessionVisible = !isDocumentSessionVisible;
+});
+
+// Apply CSS styles to the button
+button.style.background = 'none';
+button.style.border = 'none';
+button.style.padding = '0';
+button.style.cursor = 'pointer';
+
+// Append the button to the chat interface
+$chatMessages.append(button);
+ // Handle additional questions, document session, etc.
+
+
+// Function to scroll chat container to bottom
+function scrollChatContainerToBottom() {
+    $chatContainer.scrollTop($chatContainer[0].scrollHeight);
+}
+    
+    } 
+
+    // Function to send user message to the backend and handle response
+    function sendMessageToBackend(message) {
+        // Show loading animation
+    $('#loading-animation').show();
+        $.ajax({
+            type: 'POST',
+            url: '/chat', // Backend endpoint URL
+            contentType: 'application/json',
+            data: JSON.stringify({ user_question: message }),
+            success: function(response) {
+                 // Hide loading animation
+            $('#loading-animation').hide();
+                handleResponse(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error sending message:', error);
+                 // Hide loading animation in case of error
+            $('#loading-animation').hide();
+            }
+        });
+    }
+    // Function to toggle between voice and send buttons based on input value
+    function toggleButtons() {
+        const inputValue = $userInput.val().trim();
+        if (inputValue !== '') {
+            $voiceButton.hide();
+            $sendButton.show();
+        } else {
+            $voiceButton.show();
+            $sendButton.hide();
+        }
+    }
+
+    // Event listener for input change
+    $userInput.on('input', function() {
+        toggleButtons(); // Toggle buttons based on input value
+    });
+
+    // Event listener for form submission (send button)
+    $('#chat-form').submit(function(event) {
+        event.preventDefault();
+        const userQuestion = $userInput.val().trim();
+        if (userQuestion !== '') {
+            appendMessage('user', userQuestion, 'user');
+            sendMessageToBackend(userQuestion);
+            $userInput.val('');
+            toggleButtons(); // Toggle buttons after sending message
+        }
+    });
+
+    // Function to save chat history in local storage
+function saveChatHistory(role, message) {
+    let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    chatHistory.push({ role, text: message });
+    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+}
+
+
+    // Function to append message to chat interface with specific message type
+    function appendMessage(role, message, type) {
+        let messageElement;
+        if (type === 'user') {
+            messageElement = `<div id="user-message" class="chat-message">${message}</div>`;
+        } else if (type === 'response') {
+            messageElement = `<div id="response-message" class="chat-message">${message}</div>`;
+        } else if (type === 'additional_question') {
+            messageElement = `<div id="additional-question" class="chat-message">${message}</div>`;
+        } else {
+            // Default message style
+            messageElement = `<div class="chat-message">${message}</div>`;
+        }
+
+        $chatMessages.append(messageElement);
+        saveChatHistory(role, message); // Save message to chat history
+        // Scroll chat container to bottom
+    scrollChatContainerToBottom();
+    
+    }
+    // Function to scroll chat container to bottom
+function scrollChatContainerToBottom() {
+    $chatContainer.scrollTop($chatContainer[0].scrollHeight);
+}
+   
+    // Voice command button click event
+    $('#voice-command-button').click(function() {
+        voiceCommand(); // Call the voiceCommand function
+    });
+
+    // Function for voice command
+    function voiceCommand() {
+        var recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.onresult = function(event) {
+            var transcript = event.results[0][0].transcript;
+            $userInput.val(transcript);
+            $('#input').submit(); // Submit the form after setting the input value
+        };
+        recognition.start();
+    }
+     // Function to show chat history
+     function showChatHistory() {
+            // Assuming this function displays chat history (not defined in the provided code)
+        }
+
+        // Function to start a new chat and refresh the page
+        function newChat() {
+            location.reload(); // Reload the page
+        }
+        
+        
+
+        // Open sidebar button click event
+        $('#open-sidebar-btn').click(function() {
+            $('body').addClass('sidebar-opened');
+            $('#open-sidebar-btn').hide();
+            $('.close-sidebar-btn').show();
+            adjustInputWidth();
+        });
+
+        // Close sidebar button click event
+        $('.close-sidebar-btn').click(function() {
+            $('body').removeClass('sidebar-opened');
+            $('#open-sidebar-btn').show();
+            $('.close-sidebar-btn').hide();
+            adjustInputWidth();
+        });
+
+        // Automatically close sidebar when the page loads
+        $('body').removeClass('sidebar-opened');
+        $('#open-sidebar-btn').show();
+        $('.close-sidebar-btn').hide();
+        adjustInputWidth(); // Assuming this function is defined elsewhere
+    }); 
+    document.addEventListener('DOMContentLoaded', () => {
+    const settingsLink = document.getElementById('settings-link');
+    const settingsPopup = document.getElementById('settings-popup');
+    const closeButton = document.getElementById('close-button');
+
+    settingsLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        settingsPopup.style.display = 'flex';
+    });
+
+    closeButton.addEventListener('click', () => {
+        settingsPopup.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target == settingsPopup) {
+            settingsPopup.style.display = 'none';
+        }
+    });
+
+    document.querySelectorAll('.settings-tab').forEach(tab => {
+        tab.addEventListener('click', (event) => {
+            event.preventDefault();
+            document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.settings-section').forEach(section => section.classList.remove('active'));
+            tab.classList.add('active');
+            const sectionId = tab.id.replace('-tab', '-section');
+            if (sectionId === 'contact-us-section') {
+                loadContactUsPage();
+            } else {
+                document.getElementById(sectionId).classList.add('active');
+            }
+        });
+    });
+
+    document.getElementById('general-tab').click(); // Open the General tab by default
+
+    function loadContactUsPage() {
+        fetch('settingshtml/contact-us.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('help-section').innerHTML = html;
+                const script = document.createElement('script');
+                script.textContent = `
+                    document.getElementById('contact-form').addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        console.log('Form submitted');
+                    });
+                `;
+                document.getElementById('help-section').appendChild(script);
+            })
+            .catch(error => console.error('Error loading Contact Us page:', error));
+    }
+});
+
+function saveLanguagePreference() {
+        const selectedLanguage = document.getElementById("language-select").value;
+        fetch("/save_language", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ language: selectedLanguage })
+        }).then(response => {
+            if (response.ok) {
+                console.log("Language preference saved.");
+            } else {
+                console.error("Failed to save language preference.");
+            }
+        });
+    }
+document.addEventListener('DOMContentLoaded', () => {
+    const settingsPopup = document.getElementById('settings-popup');
+    const profileButton = document.getElementById('profile-button');
+    const closeButton = document.getElementById('close-button');
+    const tabs = document.querySelectorAll('.settings-tab');
+    const sections = document.querySelectorAll('.settings-section');
+    const contactUsLink = document.getElementById('contact-us-link');
+    const contactUsForm = document.getElementById('contact-us-form');
+    const helpContent = document.getElementById('help-content');
+    const backToHelp = document.getElementById('back-to-help');
+    const faqLink = document.getElementById('faq-link');
+    const faqContent = document.getElementById('faq-content');
+    const backToHelpFromFaq = document.getElementById('back-to-help-from-faq');
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    profileButton.addEventListener('click', () => {
+        settingsPopup.style.display = 'block';
+    });
+
+    closeButton.addEventListener('click', () => {
+        settingsPopup.style.display = 'none';
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', (event) => {
+            event.preventDefault();
+            const targetSection = document.getElementById(tab.getAttribute('data-section'));
+
+            tabs.forEach(t => t.classList.remove('active'));
+            sections.forEach(section => section.style.display = 'none');
+
+            tab.classList.add('active');
+            targetSection.style.display = 'block';
+        });
+    });
+
+    contactUsLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        helpContent.style.display = 'none';
+        contactUsForm.style.display = 'block';
+    });
+
+    backToHelp.addEventListener('click', (event) => {
+        event.preventDefault();
+        contactUsForm.style.display = 'none';
+        helpContent.style.display = 'block';
+    });
+
+    faqLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        helpContent.style.display = 'none';
+        faqContent.style.display = 'block';
+    });
+
+    backToHelpFromFaq.addEventListener('click', (event) => {
+        event.preventDefault();
+        faqContent.style.display = 'none';
+        helpContent.style.display = 'block';
+    });
+
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            if (answer.style.display === 'none') {
+                answer.style.display = 'block';
+            } else {
+                answer.style.display = 'none';
+            }
+        });
+    });
+
+    // Optional: close the popup if user clicks outside of it
+    window.addEventListener('click', (event) => {
+        if (event.target === settingsPopup) {
+            settingsPopup.style.display = 'none';
+        }
+    });
+});
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            
+            fetch('/send-email', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    alert('Email sent successfully!');
+                } else {
+                    alert('Error sending email.');
+                }
+            }).catch(error => {
+                alert('Error sending email.');
+            });
+        });
+
+        const selectedFiles = new Set();
+
+        document.getElementById('attachments').addEventListener('change', function() {
+            const fileList = this.files;
+            const output = document.getElementById('file-list');
+
+            for (let i = 0; i < fileList.length; i++) {
+                if (selectedFiles.size < 3) {
+                    selectedFiles.add(fileList[i].name);
+                } else {
+                    alert('Maximum of three files can be uploaded.');
+                    break;
+                }
+            }
+
+            function updateFileList() {
+                output.innerHTML = '';
+
+                selectedFiles.forEach(fileName => {
+                    const listItem = document.createElement('div');
+                    listItem.className = 'file-item';
+                    listItem.textContent = fileName;
+
+                    const removeButton = document.createElement('span');
+                    removeButton.className = 'remove-button';
+                    removeButton.innerHTML = '&times;';
+                    removeButton.addEventListener('click', function() {
+                        selectedFiles.delete(fileName);
+                        updateFileList();
+                    });
+
+                    listItem.appendChild(removeButton);
+                    output.appendChild(listItem);
+                });
+            }
+
+            updateFileList();
+        });
+
+const subscriptionTab = document.getElementById('subscription-tab');
+const subscriptionSection = document.getElementById('subscription-section');
+const subscribeButton = document.getElementById('subscribe-button');
+var stripe = Stripe('pk_live_51PDNsQGthr7AaSvULnZNACBai9axnSrVJ0CqAbhbwr0F7Xg8EYrmCevgQYLDTGymKowgatM29bzeofxK8I4IZAdg00K7TIkTDk');
+subscriptionTab.addEventListener('click', (event) => {
+    event.preventDefault();
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(section => section.style.display = 'none');
+    subscriptionTab.classList.add('active');
+    subscriptionSection.style.display = 'block';
+});
+
+subscribeButton.addEventListener('click', () => {
+    fetch('/subscribe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    }).then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+        } else {
+            const checkoutSessionId = data.checkout_session_id;
+            stripe.redirectToCheckout({ sessionId: checkoutSessionId });
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+
+
+
+
+</script>
+</body>
+</html>

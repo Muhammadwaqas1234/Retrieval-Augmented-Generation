@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc Create Page</title>
+    <link rel="stylesheet" href="css/doc.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="js/doc.js" defer></script>
+</head>
+<body>
+    <div class="main-container">
+        <aside class="sidebar">
+            <button class="sidebar-btn">
+                <img src="images/library.png" alt="Library">
+                Library
+            </button>
+            <div class="dropdown">
+                <a href="#">Question History</a>
+                <a href="#">Function 2</a>
+            </div>
+            <button class="sidebar-btn">
+                <img src="images/addl.png" alt="Import Items">
+                Import Items
+            </button>
+            <div class="dropdown"></div>
+            <button class="sidebar-btn active">
+                <img src="images/Doc.png" alt="Doc Create">
+                Doc Create
+            </button>
+            <div class="dropdown"></div>
+            <button class="sidebar-btn">
+                <img src="images/workspace.png" alt="Workspace">
+                Workspace
+            </button>
+            <div class="dropdown">
+                <a href="#">See All</a>
+                <a href="#">Recent Workspace 1</a>
+                <a href="#">Recent Workspace 2</a>
+                <a href="#">Recent Workspace 3</a>
+            </div>
+            <button class="sidebar-btn">
+                <img src="images/help.png" alt="Help">
+                Help
+            </button>
+            <div class="dropdown">
+                <a href="#">Terms of Use</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact</a>
+            </div>
+        </aside>
+        <main class="content">
+            <div class="editor-toolbar">
+                <div class="toolbar-section">
+                    <label>Font</label>
+                    <select class="toolbar-select" id="font-family-button">
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                    </select>
+                    <label>Size</label>
+                    <select class="toolbar-select" id="font-size-button">
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+                        <option value="14">14</option>
+                    </select>
+                    <label>Color</label>
+                    <input type="color" id="font-color-button">
+                    <label>Background</label>
+                    <input type="color" id="background-color-button">
+                </div>
+                <div class="toolbar-section">
+                    <button class="toolbar-btn" id="bold-button"><i class="fas fa-bold"></i></button>
+                    <button class="toolbar-btn" id="italic-button"><i class="fas fa-italic"></i></button>
+                    <button class="toolbar-btn" id="underline-button"><i class="fas fa-underline"></i></button>
+                    <button class="toolbar-btn" id="strikethrough-button"><i class="fas fa-strikethrough"></i></button>
+                </div>
+                <div class="toolbar-section">
+                    <button class="toolbar-btn" id="left-align-button"><i class="fas fa-align-left"></i></button>
+                    <button class="toolbar-btn" id="center-align-button"><i class="fas fa-align-center"></i></button>
+                    <button class="toolbar-btn" id="right-align-button"><i class="fas fa-align-right"></i></button>
+                    <button class="toolbar-btn" id="justify-align-button"><i class="fas fa-align-justify"></i></button>
+                </div>
+                <div class="toolbar-section">
+                    <button class="toolbar-btn" id="bulleted-list-button"><i class="fas fa-list-ul"></i></button>
+                    <button class="toolbar-btn" id="numbered-list-button"><i class="fas fa-list-ol"></i></button>
+                </div>
+                <div class="toolbar-section">
+                    <button class="toolbar-btn" id="increase-indent-button"><i class="fas fa-indent"></i></button>
+                    <button class="toolbar-btn" id="decrease-indent-button"><i class="fas fa-outdent"></i></button>
+                </div>
+                <div class="toolbar-section">
+                    <button class="toolbar-btn" id="insert-link-button"><i class="fas fa-link"></i></button>
+                    <button class="toolbar-btn" id="insert-image-button"><i class="fas fa-image"></i></button>
+                    <button class="toolbar-btn" id="insert-table-button"><i class="fas fa-table"></i></button>
+                    <button class="toolbar-btn" id="insert-horizontal-line-button"><i class="fas fa-minus"></i></button>
+                </div>
+                <div class="toolbar-section">
+                    <button class="toolbar-btn" id="undo-button"><i class="fas fa-undo"></i></button>
+                    <button class="toolbar-btn" id="redo-button"><i class="fas fa-redo"></i></button>
+                    <button class="toolbar-btn" id="clear-formatting-button"><i class="fas fa-eraser"></i></button>
+                </div>
+                <div class="toolbar-section">
+                    <button class="toolbar-btn" id="find-replace-button"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="toolbar-section">
+                    <button class="toolbar-btn" id="copy-button"><i class="fas fa-copy"></i></button>
+                    <button class="toolbar-btn" id="cut-button"><i class="fas fa-cut"></i></button>
+                    <button class="toolbar-btn" id="paste-button"><i class="fas fa-paste"></i></button>
+                </div>
+                <div class="toolbar-section">
+                    <button class="toolbar-btn" id="extract-text-button"><i class="fas fa-file-alt"></i></button>
+                    <button id="convert-button"><i class="fas fa-file-export"></i><span> Convert</span></button>
+                </div>
+                <div id="convert-menu" class="convert-menu">
+                    <button id="convert-pdf-button">PDF</button>
+                    <button id="convert-word-button">Word</button>
+                    <button id="convert-text-button">Text</button>
+                </div>
+            </div>
+            <div class="doc-area" id="doc-area">
+                <!-- Uploaded content will appear here -->
+            </div>
+            <textarea id="editor" class="editor"></textarea>
+            <div class="search-bar">
+                <input type="text" placeholder="Search or ask a question..." id="search-input">
+                <button class="send-button" id="send-button">
+                    <img src="images/up.png" alt="Send">
+                </button>
+                <button class="attach-icon">
+                    <img src="images/attach.png" alt="Attach">
+                </button>
+                <input type="file" id="upload-input" multiple style="display:none;">
+            </div>
+        </main>
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="user-profile">
+                    <img src="images/usericon.png" alt="User" class="user-icon">
+                    <div class="user-dropdown">
+                        <a href="#">Account Settings</a>
+                        <a href="#">Profile</a>
+                        <a href="#">Log Out</a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <div class="notification"></div>
+                <div class="notification"></div>
+                <div class="notification"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

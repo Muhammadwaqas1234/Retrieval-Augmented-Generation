@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('index') }}"> <img src="/static/img/back.png" alt="" style="width:26px;height: 26px;margin-right: 5px;"> </a><h3>Settings</h3>
+        <div style="display: flex; align-items: center;">
+            <img src="/static/img/account-removebg-preview.png" alt="" style="width:26px;height: 26px;margin-right: 5px;">
+            <p>{{ user.username }}</p>
+        </div> 
+        <h4>Account</h4>
+        <div style="display: flex; align-items: center;">
+            <img src="/static/img/email.png" alt="" style="width:26px;height: 26px;margin-right: 5px;">
+            <p>{{ user.email }}</p>
+        </div> 
+        <div style="display: flex; align-items: center;">
+            <img src="/static/img/password.png" alt="" style="width:25px;height: 25px;margin-right: 5px;">
+            <a href="{{ url_for('change_password') }}" style="color: #000;text-decoration: none;">Change Password</a>
+        </div>
+        <br>
+        <h4>About Us</h4>
+        <div class="btn btn-primary mt-3" onclick="upgrade()" style="display: flex; align-items: center;">
+            <img src="/static/img/WhatsApp_Image_2024-05-28_at_00.00.01_59dfb5af-removebg-preview.png" alt="" style="width:28px;height: 30px;margin-right: 5px;">
+            <a href="{{ url_for('support') }}" style="color: #000;text-decoration: none;">Support</a>
+        </div>
+        <div class="btn btn-primary mt-3" onclick="upgrade()" style="display: flex; align-items: center; padding-top: 0.5rem;">
+            <img src="\static\img\Privacy policy (2).jpg" alt="" style="width:28px;height: 30px;margin-right: 5px;">
+            <a href="{{ url_for('terms') }}" style="color: #000;text-decoration: none;">T & C</a>
+        </div>
+        <div class="btn btn-primary mt-3" onclick="upgrade()" style="display: flex; align-items: center;padding-top: 0.5rem;">
+            <img src="\static\img\Privacy policy (1).jpg" alt="" style="width:28px;height: 30px;margin-right: 5px;">
+            <a href="{{ url_for('privacy') }}" style="color: #000;text-decoration: none;">Privacy Policy</a>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <img src="/static/img/images__2_-removebg-preview.png" alt="" style="width:25px;height: 25px;margin-right: 5px;padding-top: 0.5rem;">
+            <a href="{{ url_for('logout') }}" style="color: #000;text-decoration: none;">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

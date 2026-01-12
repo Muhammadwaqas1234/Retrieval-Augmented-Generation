@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+          
+        }
+        .container {
+            padding: 20px;
+            max-width: 90%;
+            width: 500px;
+            background-color: white;
+            
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+            font-family: 'Arial Black', sans-serif;
+            font-weight: bold;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #010101;
+        }
+        #feedback_confirmation {
+            color: green;
+            font-size: 16px;
+            text-align: center;
+            display: none;
+        }
+        .contact-info {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .contact-info a {
+            color: #333;
+            text-decoration: none;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            p {
+                font-size: 14px;
+            }
+            .form-group textarea {
+                font-size: 12px;
+                padding: 10px;
+            }
+            .form-group input[type="submit"] {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Support</h1>
+        <p>Use this form to send us your feedback:</p>
+        <form id="feedbackForm" method="POST">
+            <div class="form-group">
+                <textarea name="message" id="feedbackMessage" rows="4" placeholder="Enter your feedback here"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit Feedback">
+            </div>
+        </form>
+        <div id="feedback_confirmation">Thank you for your feedback! We will review it shortly.</div>
+        <div class="contact-info">
+            For help, contact us directly at <a href="mailto:suggestions@scai.co">suggestions@scai.co</a>
+        </div>
+    </div>
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            fetch('/support', {
+                method: 'POST',
+                body: new FormData(this)
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('feedback_confirmation').style.display = 'block';
+                    document.getElementById('feedbackMessage').value = '';
+                    setTimeout(() => {
+                        document.getElementById('feedback_confirmation').style.display = 'none';
+                    }, 5000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

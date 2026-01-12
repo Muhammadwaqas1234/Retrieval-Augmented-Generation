@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat History</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #0b0b0b;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.session-name {
+    font-weight: bold;
+    color: #0b0b0b;
+}
+
+.time-since {
+    color: #0b0b0b;
+}
+
+.chat-history {
+    display: none;
+    margin-top: 10px;
+}
+
+.chat-message {
+    margin-bottom: 5px;
+}
+
+.chat-role {
+    font-weight: bold;
+}
+
+.chat-content {
+    margin-left: 10px;
+}
+
+@media (min-width: 600px) {
+    .container {
+        max-width: 90%;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 80%;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 70%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 60%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chat History</h1>
+        <ul>
+            {% for chat in chat_history %}
+            <li onclick="toggleChatHistory(event, '{{ chat.session_name }}')">
+                <span class="session-name">{{ chat.session_name }}</span> - <span class="time-since">{{ chat.time_since }}</span>
+                <div id="{{ chat.session_name }}" class="chat-history">
+                    {% for message in chat.chat_history %}
+                    <div class="chat-message">
+                        <span class="chat-role">{{ message.role }}:</span>
+                        <span class="chat-content">{{ message.content }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+        let openChatHistory = null;
+
+        function toggleChatHistory(event, sessionName) {
+            event.stopPropagation();
+            if (openChatHistory && openChatHistory !== sessionName) {
+                document.getElementById(openChatHistory).style.display = 'none';
+            }
+            const chatHistoryElement = document.getElementById(sessionName);
+            if (chatHistoryElement.style.display === 'none' || chatHistoryElement.style.display === '') {
+                chatHistoryElement.style.display = 'block';
+                openChatHistory = sessionName;
+            } else {
+                chatHistoryElement.style.display = 'none';
+                openChatHistory = null;
+            }
+        }
+
+        document.body.addEventListener('click', function() {
+            if (openChatHistory) {
+                document.getElementById(openChatHistory).style.display = 'none';
+                openChatHistory = null;
+            }
+        });
+
+        document.querySelectorAll('li').forEach(function(item) {
+            item.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>

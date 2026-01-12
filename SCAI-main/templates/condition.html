@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Use min-height for better adaptability */
+    overflow: hidden;
+}
+
+.modal {
+    background-color: rgba(249, 245, 245, 0.5); /* Dark overlay */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 10px; /* Add padding for better spacing on smaller devices */
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(1, 1, 1, 0.1);
+    width: 90%; /* Use percentage for better responsiveness */
+    max-width: 600px; /* Adjusted max-width for better mobile view */
+    max-height: 80%; /* Adjust the max height */
+    overflow-y: auto; /* Enable internal scrolling */
+    position: relative;
+}
+
+.close, .next-page {
+    position: absolute;
+    top: 10px;
+    font-size: 1.5rem; /* Use rem for better scalability */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close {
+    right: 20px;
+}
+
+.next-page {
+    right: 60px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.next-page:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem; /* Use rem for better scalability */
+    margin: 0 0 20px; /* Add margin for better spacing */
+}
+
+h2, p {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 1rem; /* Use rem for better scalability */
+}
+
+/* Media Queries for different screen sizes */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-width: 500px; /* Adjusted for tablet devices */
+    }
+    
+    .close, .next-page {
+        font-size: 1.25rem; /* Adjust font size */
+    }
+
+    h1 {
+        font-size: 1.75rem; /* Adjust font size */
+    }
+
+    h2, p {
+        font-size: 0.875rem; /* Adjust font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 100%;
+        max-width: 400px; /* Adjusted for mobile devices */
+    }
+
+    .close, .next-page {
+        font-size: 1rem; /* Adjust font size */
+    }
+
+    h1 {
+        font-size: 1.5rem; /* Adjust font size */
+    }
+
+    h2, p {
+        font-size: 0.75rem; /* Adjust font size */
+    }
+}
+ 
+    </style>
+</head>
+<body>
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            
+            <a href="{{ url_for('index') }}" class="next-page" id="nextPageLink"><i class="fas fa-arrow-right"></i></a>
+            <h1>Terms and Conditions</h1>
+            <h2>Welcome to SCAI!</h2>
+            <p>These Terms and Conditions govern your use of our website and services. By accessing or using SCAI, you agree to comply with and be bound by these terms. If you do not agree with any part of these terms, you must not use our services.</p>
+
+            <h2>Definitions</h2>
+            <p><strong>"SCAI"</strong> refers to the website and services provided by SCAI, including any related applications and content.</p>
+            <p><strong>"User", "you", and "your"</strong> refer to any individual who accesses or uses SCAI.</p>
+            <p><strong>"We", "us", and "our"</strong> refer to SCAI and its operators.</p>
+
+            <h2>Use of Services</h2>
+            <p><strong>Eligibility:</strong> You must be at least 18 years old to use SCAI. By using our services, you represent that you are of legal age and have the legal capacity to enter into a binding agreement.</p>
+            <p><strong>Account Creation:</strong> To access certain features of SCAI, you may need to create an account. You agree to provide accurate and complete information during the registration process and to keep your account information up to date.</p>
+            <p><strong>Account Security:</strong> You are responsible for maintaining the confidentiality of your account credentials. You agree to notify us immediately of any unauthorized use of your account or any other breach of security.</p>
+            <p><strong>Prohibited Activities:</strong> You agree not to engage in any of the following activities:</p>
+            <ul>
+                <li>Violating any applicable laws or regulations.</li>
+                <li>Infringing on the intellectual property rights of others.</li>
+                <li>Using our services for any unlawful or fraudulent purposes.</li>
+                <li>Interfering with or disrupting the operation of SCAI or its servers.</li>
+            </ul>
+
+            <h2>Subscriptions and Payments</h2>
+            <p><strong>Subscription Plans:</strong> We offer various subscription plans for our services. The details of each plan, including pricing and features, are available on our website.</p>
+            <p><strong>Payment:</strong> Payments for subscription plans must be made in advance. We accept payment via credit card, PayPal, and other payment methods as specified on our website.</p>
+            <p><strong>Billing:</strong> You authorize us to charge your chosen payment method for the subscription plan you select. If your payment method fails, we may suspend or terminate your access to the services.</p>
+
+            <h2>Termination</h2>
+            <p>We reserve the right to terminate or suspend your access to SCAI at any time, without notice or liability, for any reason, including if we believe you have violated these Terms and Conditions.</p>
+
+            <h2>Changes to Terms and Conditions</h2>
+            <p>We may update these Terms and Conditions from time to time. We will notify you of any changes by posting the new terms on our website. Your continued use of SCAI after any such changes constitutes your acceptance of the new terms.</p>
+
+            <h2>Governing Law</h2>
+            <p>These Terms and Conditions are governed by and construed in accordance with the laws applicable in your jurisdiction, without regard to its conflict of law principles.</p>
+        </div>
+    </div>
+    
+</body>
+</html>
