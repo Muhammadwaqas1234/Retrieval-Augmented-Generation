@@ -3,48 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscription Successful</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            
-            color: #333;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        h1 {
-            font-size: 36px;
-            color: #28a745;
-        }
-        p {
-            font-size: 18px;
-            margin: 20px 0;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #000;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        a:hover {
-            background-color: #0000;
-            transform: scale(1.05);
-        }
-    </style>
+    <title>Subscription active — SCAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/scai.css">
 </head>
 <body>
-    <div>
-        <h1>Subscription Successful</h1>
-        <p>Thank you for subscribing to the Pro version! You can now ask up to 10 questions per day.</p>
-        <a href="/">Go to Home</a>
+    <div class="status-wrap">
+        <div class="status-card">
+            <div class="status-icon ok">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h1>Welcome to Pro!</h1>
+            <p>Your subscription is active. You now have the full Professional quota — enjoy the extra headroom.</p>
+            <a class="btn btn-auto" href="/">Start asking</a>
+        </div>
     </div>
 </body>
 </html>

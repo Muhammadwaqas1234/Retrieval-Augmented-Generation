@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f0f2f5; color: #1f2430; padding: 64px; }
+    .sheet { max-width: 2072px; margin: 0 auto; }
+    .head { text-align: center; margin-bottom: 24px; }
+    .head .brand { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .head .brand img { width: 54px; height: 54px; }
+    .head h1 { font-size: 44px; font-weight: 700; letter-spacing: -0.01em; }
+    .head p { font-size: 19px; color: #5f6571; margin-top: 6px; }
+    .tokens { display: flex; justify-content: center; gap: 26px; margin: 28px 0 48px; flex-wrap: wrap; }
+    .token { display: flex; align-items: center; gap: 9px; font-size: 14px; color: #5f6571; background: #fff; border: 1px solid #e8eaed; padding: 9px 18px; border-radius: 999px; }
+    .chip { width: 17px; height: 17px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.08); }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .cell { display: flex; flex-direction: column; }
+    .frame { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 6px rgba(31,36,48,0.06), 0 18px 44px rgba(31,36,48,0.11); border: 1px solid #e4e6ea; }
+    .chrome { display: flex; gap: 6px; padding: 11px 14px; background: #f6f7f9; border-bottom: 1px solid #e8eaed; }
+    .chrome span { width: 10px; height: 10px; border-radius: 50%; }
+    .chrome span:nth-child(1) { background: #ff5f57; }
+    .chrome span:nth-child(2) { background: #febc2e; }
+    .chrome span:nth-child(3) { background: #28c840; }
+    .shot { width: 100%; height: 430px; object-fit: cover; object-position: top; display: block; }
+    .tall .shot { height: 920px; }
+    .label { text-align: center; margin-top: 13px; }
+    .label b { font-size: 15.5px; font-weight: 600; }
+    .label span { display: block; font-size: 12.5px; color: #9aa0ab; margin-top: 1px; }
+    .foot { text-align: center; margin-top: 52px; color: #5f6571; font-size: 15px; }
+    .foot b { color: #1f2430; }
+</style>
+</head>
+<body>
+<div class="sheet">
+    <div class="head">
+        <div class="brand">
+            <img src="../../SCAI-main/static/img/logo.png" alt="SCAI">
+            <h1>SCAI — Complete Product Design</h1>
+        </div>
+        <p>RAG-based document intelligence platform · every screen, one design system</p>
+        <div class="tokens">
+            <div class="token"><span class="chip" style="background:#1a8cff"></span> Accent #1A8CFF</div>
+            <div class="token"><span class="chip" style="background:#1f2430"></span> Ink #1F2430</div>
+            <div class="token"><span class="chip" style="background:#f5f6f8"></span> Surface #F5F6F8</div>
+            <div class="token">Aa · Poppins</div>
+            <div class="token">Pill buttons · Soft cards · Line icons</div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="cell tall">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="01-landing.png"></div>
+            <div class="label"><b>Landing</b><span>Hero · pricing · features · FAQ</span></div>
+        </div>
+        <div class="cell tall">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="02-register.png"></div>
+            <div class="label"><b>Sign up</b><span>Split-screen onboarding</span></div>
+        </div>
+        <div class="cell tall">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="03-login.png"></div>
+            <div class="label"><b>Log in</b><span>Brand visual + focused form</span></div>
+        </div>
+
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="04-chat-workspace.png"></div>
+            <div class="label"><b>Chat workspace</b><span>Distraction-free canvas</span></div>
+        </div>
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="04b-chat-sidebar-open.png"></div>
+            <div class="label"><b>Navigation</b><span>Slide-in sidebar</span></div>
+        </div>
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="05-upload-modal.png"></div>
+            <div class="label"><b>Document upload</b><span>Modal over dimmed canvas</span></div>
+        </div>
+
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="06-history.png"></div>
+            <div class="label"><b>History</b><span>Replayable session cards</span></div>
+        </div>
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="07-account.png"></div>
+            <div class="label"><b>Account settings</b><span>Grouped setting rows</span></div>
+        </div>
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="08-change-password.png"></div>
+            <div class="label"><b>Security</b><span>Change password</span></div>
+        </div>
+
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="09-subscribe.png"></div>
+            <div class="label"><b>Pricing</b><span>Stripe-powered upgrade</span></div>
+        </div>
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="10-support.png"></div>
+            <div class="label"><b>Support</b><span>Feedback form</span></div>
+        </div>
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="11-terms-conditions.png"></div>
+            <div class="label"><b>Legal</b><span>Terms &amp; privacy pages</span></div>
+        </div>
+
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="13-subscription-success.png"></div>
+            <div class="label"><b>Upgrade success</b><span>Status confirmation</span></div>
+        </div>
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="14-subscription-cancel.png"></div>
+            <div class="label"><b>Checkout canceled</b><span>Graceful recovery</span></div>
+        </div>
+        <div class="cell">
+            <div class="frame"><div class="chrome"><span></span><span></span><span></span></div><img class="shot" src="12-privacy.png"></div>
+            <div class="label"><b>Privacy</b><span>Clear, readable policy</span></div>
+        </div>
+    </div>
+
+    <div class="foot">
+        <b>SCAI</b> · Flask + LlamaIndex RAG · designed &amp; built by <b>Muhammad Waqas</b> · github.com/Muhammadwaqas1234
+    </div>
+</div>
+</body>
+</html>

@@ -10,6 +10,8 @@ PAGES = [
     ("/account", "07-account.png"),
     ("/change_password", "08-change-password.png"),
     ("/subscribe", "09-subscribe.png"),
+    ("/subscription_success", "13-subscription-success.png"),
+    ("/subscription_cancel", "14-subscription-cancel.png"),
 ]
 
 with sync_playwright() as p:

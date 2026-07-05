@@ -3,48 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscription Canceled</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            
-            color: #333;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        h1 {
-            font-size: 36px;
-            color: #dc3545; /* Red color to signify cancellation */
-        }
-        p {
-            font-size: 18px;
-            margin: 20px 0;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #000;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        a:hover {
-            background-color: #000;
-            transform: scale(1.05);
-        }
-    </style>
+    <title>Checkout canceled — SCAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/scai.css">
 </head>
 <body>
-    <div>
-        <h1>Subscription Canceled</h1>
-        <p>Your subscription process was canceled. If this was a mistake, please try again.</p>
-        <a href="/">Go to Home</a>
+    <div class="status-wrap">
+        <div class="status-card">
+            <div class="status-icon info">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            </div>
+            <h1>Checkout canceled</h1>
+            <p>No charge was made. You can restart the upgrade whenever you're ready.</p>
+            <a class="btn btn-auto" href="/subscribe">View plans</a>
+            <p style="margin: 14px 0 0;"><a href="/" style="color: var(--blue); text-decoration: none; font-size: 0.85rem;">Back to chat</a></p>
+        </div>
     </div>
 </body>
 </html>

@@ -2,12 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy</title>
+    <title>Privacy Policy — SCAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/scai.css">
 </head>
 <body>
-    <h1>Privacy Policy</h1>
-    <p>This is the privacy policy.</p>
+    <div class="topbar">
+        <a class="brand" href="{{ url_for('index') }}">
+            <img src="/static/img/logo.png" alt="SCAI">
+            <div><strong>SCAI</strong><span>Standards &amp; Codes AI</span></div>
+        </a>
+        <a class="back" href="{{ url_for('index') }}">← Back to chat</a>
+    </div>
+
+    <div class="page legal" style="margin: 0 auto;">
+        <div class="page-head">
+            <h1>Privacy Policy</h1>
+            <p>How SCAI collects, uses, and protects your information.</p>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-top: 0;">Information We Collect</h2>
+            <p>When you create an account we collect your name, username, and email address. When you use SCAI we store the documents you upload and your conversation history so we can provide the service.</p>
+
+            <h2>How We Use Your Information</h2>
+            <p>Your data is used solely to operate SCAI: answering your questions from your documents, maintaining your conversation history, enforcing usage quotas, and processing subscriptions. We do not sell your data to third parties.</p>
+
+            <h2>Document Privacy</h2>
+            <p>Uploaded documents are indexed only for your own queries. Document content is shared with our language-model provider strictly to generate answers to your questions and is not used for any other purpose.</p>
+
+            <h2>Data Retention</h2>
+            <p>You can delete your conversation history and uploaded documents at any time. When you delete your account, associated data is removed from our systems.</p>
+
+            <h2>Security</h2>
+            <p>We apply industry-standard measures to protect your data, including secure session management and role-based access to stored information.</p>
+
+            <h2>Contact</h2>
+            <p>Questions about this policy? Contact us at <a href="mailto:suggestions@scai.co" style="color: var(--blue); text-decoration: none;">suggestions@scai.co</a>.</p>
+        </div>
+    </div>
 </body>
 </html>

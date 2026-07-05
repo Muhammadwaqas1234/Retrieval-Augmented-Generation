@@ -2,138 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chat History</title>
-    <style>
-       body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-h1 {
-    text-align: center;
-    color: #0b0b0b;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 20px;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-}
-
-.session-name {
-    font-weight: bold;
-    color: #0b0b0b;
-}
-
-.time-since {
-    color: #0b0b0b;
-}
-
-.chat-history {
-    display: none;
-    margin-top: 10px;
-}
-
-.chat-message {
-    margin-bottom: 5px;
-}
-
-.chat-role {
-    font-weight: bold;
-}
-
-.chat-content {
-    margin-left: 10px;
-}
-
-@media (min-width: 600px) {
-    .container {
-        max-width: 90%;
-    }
-}
-
-@media (min-width: 768px) {
-    .container {
-        max-width: 80%;
-    }
-}
-
-@media (min-width: 992px) {
-    .container {
-        max-width: 70%;
-    }
-}
-
-@media (min-width: 1200px) {
-    .container {
-        max-width: 60%;
-    }
-}
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation history — SCAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/scai.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Chat History</h1>
-        <ul>
-            {% for chat in chat_history %}
-            <li onclick="toggleChatHistory(event, '{{ chat.session_name }}')">
-                <span class="session-name">{{ chat.session_name }}</span> - <span class="time-since">{{ chat.time_since }}</span>
-                <div id="{{ chat.session_name }}" class="chat-history">
-                    {% for message in chat.chat_history %}
-                    <div class="chat-message">
-                        <span class="chat-role">{{ message.role }}:</span>
-                        <span class="chat-content">{{ message.content }}</span>
-                    </div>
-                    {% endfor %}
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
+    <div class="topbar">
+        <a class="brand" href="{{ url_for('index') }}">
+            <img src="/static/img/logo.png" alt="SCAI">
+            <div><strong>SCAI</strong><span>Standards &amp; Codes AI</span></div>
+        </a>
+        <a class="back" href="{{ url_for('index') }}">← Back to chat</a>
     </div>
+
+    <div class="page">
+        <div class="page-head">
+            <h1>Conversation history</h1>
+            <p>Every session is saved — click one to replay it.</p>
+        </div>
+
+        {% if chat_history %}
+        {% for chat in chat_history %}
+        <div class="session-card" onclick="toggleChatHistory(event, 'session-{{ loop.index }}')">
+            <div class="session-top">
+                <span class="session-name">{{ chat.session_name }}</span>
+                <span class="time-since">{{ chat.time_since }}</span>
+            </div>
+            <div id="session-{{ loop.index }}" class="chat-history">
+                {% for message in chat.chat_history %}
+                <div class="chat-message {{ 'user' if message.role == 'user' else 'assistant' }}">
+                    <div class="bubble">{{ message.content }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="empty-state">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h2>No conversations yet</h2>
+            <p>Ask your first question and it will appear here.</p>
+            <a class="btn btn-auto" href="{{ url_for('index') }}">Start chatting</a>
+        </div>
+        {% endif %}
+    </div>
+
     <script>
         let openChatHistory = null;
 
-        function toggleChatHistory(event, sessionName) {
+        function toggleChatHistory(event, sessionId) {
             event.stopPropagation();
-            if (openChatHistory && openChatHistory !== sessionName) {
+            if (openChatHistory && openChatHistory !== sessionId) {
                 document.getElementById(openChatHistory).style.display = 'none';
             }
-            const chatHistoryElement = document.getElementById(sessionName);
-            if (chatHistoryElement.style.display === 'none' || chatHistoryElement.style.display === '') {
-                chatHistoryElement.style.display = 'block';
-                openChatHistory = sessionName;
+            const el = document.getElementById(sessionId);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+                openChatHistory = sessionId;
             } else {
-                chatHistoryElement.style.display = 'none';
+                el.style.display = 'none';
                 openChatHistory = null;
             }
         }
 
-        document.body.addEventListener('click', function() {
+        document.body.addEventListener('click', function () {
             if (openChatHistory) {
                 document.getElementById(openChatHistory).style.display = 'none';
                 openChatHistory = null;
             }
-        });
-
-        document.querySelectorAll('li').forEach(function(item) {
-            item.addEventListener('click', function(event) {
-                event.stopPropagation();
-            });
         });
     </script>
 </body>
