@@ -1,166 +1,137 @@
-### Retrieval-Augmented Generation (RAG)–Based AI Knowledge System with SaaS Architecture
+<div align="center">
 
-This repository contains a production-grade **AI-powered document intelligence platform** engineered to deliver accurate, context-aware answers to construction engineering queries by leveraging a private corpus of technical PDF documents. The system employs **Retrieval-Augmented Generation (RAG)** to ensure that all responses are grounded strictly in authoritative source material, eliminating hallucinations and enabling auditable, fact-based outputs.
+# SCAI — RAG-Based AI Knowledge Platform
 
-The application is architected as a **cloud-native SaaS solution**, integrating secure user management, role-based access control, voice synthesis, persistent conversation history, and subscription billing.
+**A document intelligence SaaS for construction engineering — RAG-grounded answers from a private technical corpus, with users, quotas, history, voice output, and billing.**
 
----
+<br>
 
-## Executive Overview
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=flat-square&logo=flask&logoColor=white)
+![LlamaIndex](https://img.shields.io/badge/LlamaIndex-6E44FF?style=flat-square&logo=databricks&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe_(optional)-635BFF?style=flat-square&logo=stripe&logoColor=white)
 
-The platform combines state-of-the-art natural language processing with scalable cloud infrastructure to provide:
+<br>
 
-- **Semantic document retrieval** over engineering literature  
-- **LLM-based reasoning** constrained by verified technical sources  
-- **Multi-tenant user management** with daily usage quotas  
-- **Subscription monetization** via Stripe  
-- **End-to-end conversation lifecycle management**  
-- **Text-to-Speech output** for multimodal interaction  
+<img src="docs/landing.png" alt="SCAI landing page" width="90%" />
 
-This solution is suitable for deployment in academic, enterprise, and professional engineering environments.
-
----
-
-## Core Capabilities
-
-### 1. Retrieval-Augmented Generation (RAG)
-- Vector-based indexing of PDF documents using **LlamaIndex**
-- Semantic similarity search with contextual ranking
-- OpenAI GPT-based inference constrained by document content
-- Prompt-level hallucination control and citation discipline
-
-### 2. Intelligent Conversational Engine
-- Query condensation and refinement
-- Context-aware answer synthesis
-- Automated generation of follow-up investigative questions
-- Session-level memory and replay
-
-### 3. Multimodal Output
-- High-quality text-to-speech via **Google TTS (gTTS)**
-- Real-time audio generation and streaming to clients
-
-### 4. Secure User & Identity Management
-- Registration, authentication, and session control
-- Encrypted credential storage (recommended for production hardening)
-- Role-based usage policies:
-  - **Basic Tier:** 5 queries per day  
-  - **Professional Tier:** 10 queries per day  
-
-### 5. Cloud-Native Persistence (AWS DynamoDB)
-| Table | Purpose |
-|------|---------|
-| Users | Identity, roles, quotas, subscription status |
-| ChatHistory | Complete conversation sessions with timestamps |
-| Feedback | User support and quality monitoring |
-
-Global secondary indexing enables low-latency authentication and analytics.
-
-### 6. Subscription & Billing Automation
-- Stripe Checkout and recurring subscriptions
-- Secure webhook verification
-- Automated role upgrade and entitlement enforcement
-- Billing lifecycle management
-
-### 7. Audit-Ready Conversation History
-- Immutable session storage
-- Human-readable temporal analytics
-- Replay and review interface for compliance and QA
+</div>
 
 ---
 
-## System Architecture
+## Overview
+
+**SCAI (Standards & Codes AI)** answers construction engineering questions strictly from a private corpus of technical PDF documents using **Retrieval-Augmented Generation (RAG)**. Every response is grounded in the indexed source material — no hallucinated citations, auditable outputs.
+
+The platform ships as a complete SaaS: registration and login, per-tier daily quotas, persistent conversation history, follow-up question generation, text-to-speech responses, and optional Stripe subscription billing.
+
+> **Now fully local.** This project originally ran on **AWS DynamoDB**; it has been re-architected to run 100% locally with **SQLite** — zero cloud infrastructure, one command to start. The original cloud implementation is preserved in [`SCAI-main/app_aws_legacy.py`](SCAI-main/app_aws_legacy.py) for reference.
+
+<div align="center">
+<img src="docs/chat.png" alt="SCAI chat workspace" width="90%" />
+</div>
+
+---
+
+## Features
+
+- **RAG engine** — PDFs are indexed with LlamaIndex (`VectorStoreIndex`); answers are generated by OpenAI models constrained to document content, with prompt-level hallucination control
+- **Conversational workspace** — ChatGPT-style UI with query condensation, session memory, and automatic follow-up question suggestions
+- **Document upload** — add PDFs from the UI; the vector index rebuilds automatically
+- **Voice output** — every answer is synthesized to speech via gTTS and streamed to the client
+- **User management** — registration, login, account settings, password/email change
+- **Usage tiers** — Basic (5 queries/day) and Professional (10 queries/day), enforced per user
+- **Conversation history** — complete sessions stored and replayable with human-readable timestamps
+- **Billing (optional)** — Stripe Checkout subscriptions with webhook verification; the app runs fully without Stripe configured
+- **Demo mode** — set `DEMO_MODE=1` to auto-login a demo account and explore instantly
+
+---
+
+## Architecture
 
 ```
-
-Client UI (HTML/CSS/JS)
-|
-Flask Application Layer (REST + Auth)
-|
-RAG Engine (LlamaIndex Vector Store)
-|
-OpenAI LLM (Constrained Reasoning)
-|
-AWS DynamoDB (Users, Sessions, Feedback)
-|
-Stripe Billing Services
-|
-gTTS Voice Synthesis
-
-````
-
----
-
-## Technology Stack
+Client UI (HTML/CSS/JS — landing, auth, chat workspace)
+        │
+Flask application layer (REST + sessions + quotas)
+        │
+RAG engine — LlamaIndex VectorStoreIndex over ./data PDFs
+        │                       (index built once, cached in-process)
+OpenAI LLM (constrained reasoning) + gTTS voice synthesis
+        │
+SQLite (users · chat history · feedback)     ← replaces AWS DynamoDB
+        │
+Stripe billing (optional)
+```
 
 | Layer | Technology |
-|------|------------|
-| Application Server | Python Flask |
-| Language Model | OpenAI GPT-3.5 |
-| Retrieval Engine | LlamaIndex (VectorStoreIndex) |
-| Database | AWS DynamoDB |
-| Speech Synthesis | Google Text-to-Speech (gTTS) |
-| Payments | Stripe |
-| Authentication | Secure Session Management |
-| Cloud Platform | Amazon Web Services |
-| Architecture Pattern | Retrieval-Augmented Generation (RAG), SaaS |
+| :--- | :--- |
+| Application server | Python Flask |
+| Language model | OpenAI (default `gpt-4o-mini`, configurable) |
+| Retrieval engine | LlamaIndex `VectorStoreIndex` |
+| Database | **SQLite** (single local file, auto-created) |
+| Speech synthesis | Google Text-to-Speech (gTTS) |
+| Payments | Stripe (optional) |
+| Frontend | HTML, CSS, vanilla JavaScript |
 
 ---
 
-## Security & Compliance Considerations
+## Getting Started
 
-- Environment-based secret management
-- Stripe webhook signature validation
-- UUID-based identity isolation
-- Role-based authorization and quota enforcement
-- Session protection and CSRF-ready routing design
-
----
-
-## Deployment
-
-### Prerequisites
-- Python 3.9+
-- AWS credentials with DynamoDB access
-- OpenAI API key
-- Stripe API and Webhook secrets
-
-### Setup
+**Prerequisites:** Python 3.10+ and an OpenAI API key. That's it — no AWS account, no cloud setup.
 
 ```bash
-git clone <repository-url>
-cd construction-ai-platform
+git clone https://github.com/Muhammadwaqas1234/Retrieval-Augmented-Generation.git
+cd Retrieval-Augmented-Generation/SCAI-main
+
+python -m venv venv
+venv\Scripts\activate            # Windows  (source venv/bin/activate on macOS/Linux)
 pip install -r requirements.txt
-````
 
-Configure environment variables:
+copy .env.example .env           # then put your OPENAI_API_KEY in .env
 
-```bash
-export OPENAI_API_KEY=your_key
-export SECRET_KEY=your_flask_secret
-export STRIPE_API_KEY=your_stripe_key
-export STRIPE_WEBHOOK_SECRET=your_webhook_secret
+flask --app app run              # → http://127.0.0.1:5000
 ```
 
-Launch the application:
+Place your PDF corpus in `SCAI-main/data/` (a sample document is included), or upload PDFs from the UI once logged in.
 
-```bash
-python app.py
-```
+**Quick exploration without registering:** add `DEMO_MODE=1` to `.env` and the app auto-logs you into a demo account.
 
 ---
 
-## Target Applications
+## Configuration
 
-* Engineering Knowledge Management Systems
-* Technical Decision Support Platforms
-* Academic Research Assistants
-* Corporate Document Intelligence Portals
-* Subscription-Based AI Advisory Services
+| Variable | Required | Purpose |
+| :--- | :--- | :--- |
+| `OPENAI_API_KEY` | Yes | Powers embeddings and answer generation |
+| `OPENAI_MODEL` | No | Model override (default `gpt-4o-mini`) |
+| `SECRET_KEY` | No | Flask session secret (safe default for local runs) |
+| `DEMO_MODE` | No | `1` auto-logins a demo account (local only) |
+| `STRIPE_API_KEY` / `STRIPE_WEBHOOK_SECRET` / `STRIPE_PRICE_ID` | No | Enable subscription billing |
 
 ---
 
-## Author
+## Migration Notes (AWS → Local)
 
-**Muhammad Waqas**
-AI Engineer | NLP & RAG Systems | Cloud-Based AI Architectures
+The re-architecture replaced every cloud dependency while keeping the UI and behavior identical:
 
+- **DynamoDB → SQLite** — the three tables (Users, ChatHistory, Feedback) became a single-file SQLite database with the same schema semantics ([`database.py`](SCAI-main/database.py))
+- **Index caching** — the vector index was previously rebuilt on every query; it is now built once per process and invalidated on document upload
+- **Modern LlamaIndex** — migrated off the deprecated `ServiceContext` API to `Settings`
+- **Stripe made optional** — billing routes return a clean "not configured" response instead of crashing without keys
+- **Missing routes fixed** — `upload_file`, `change_email`, and `condition` endpoints referenced by the UI are now implemented
+
+---
+
+## License
+
+© 2026 Muhammad Waqas. All rights reserved.
+
+<div align="center">
+
+<br>
+
+*Built by [Muhammad Waqas](https://github.com/Muhammadwaqas1234) — AI Engineer · NLP & RAG Systems*
+
+</div>

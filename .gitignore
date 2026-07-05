@@ -1,0 +1,7 @@
+
+# Local runtime artifacts
+venv/
+.env
+*.db
+output.wav
+__pycache__/
