@@ -29,6 +29,8 @@ The platform ships as a complete SaaS: registration and login, per-tier daily qu
 
 > **Now fully local.** This project originally ran on **AWS DynamoDB**; it has been re-architected to run 100% locally with **SQLite** — zero cloud infrastructure, one command to start. The original cloud implementation is preserved in [`SCAI-main/app_aws_legacy.py`](SCAI-main/app_aws_legacy.py) for reference.
 
+> 📐 **See the [complete design walkthrough](DESIGN.md)** — full-page captures of every screen, start to end.
+
 <div align="center">
 <img src="docs/chat.png" alt="SCAI chat workspace" width="90%" />
 </div>
