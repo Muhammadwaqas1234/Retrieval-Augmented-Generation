@@ -29,10 +29,22 @@ The platform ships as a complete SaaS: registration and login, per-tier daily qu
 
 > **Now fully local.** This project originally ran on **AWS DynamoDB**; it has been re-architected to run 100% locally with **SQLite** — zero cloud infrastructure, one command to start. The original cloud implementation is preserved in [`SCAI-main/app_aws_legacy.py`](SCAI-main/app_aws_legacy.py) for reference.
 
-> 📐 **See the [complete design walkthrough](DESIGN.md)** — full-page captures of every screen, start to end.
+> 🎨 **Redesigned end to end.** Every page now shares one design system — Poppins typography, a blue `#1A8CFF` accent, soft-shadow cards, and pill buttons — from the landing page through auth, chat, settings, billing, and legal pages.
+
+> 📐 **See the [complete design walkthrough](DESIGN.md)** — full-page captures of every screen, start to end, plus a one-image design sheet.
 
 <div align="center">
 <img src="docs/chat.png" alt="SCAI chat workspace" width="90%" />
+</div>
+
+---
+
+## Design
+
+One design system across all 15 screens — see [DESIGN.md](DESIGN.md) for the full walkthrough.
+
+<div align="center">
+<a href="DESIGN.md"><img src="docs/design/design-sheet.png" alt="SCAI complete product design sheet" width="90%" /></a>
 </div>
 
 ---
@@ -48,6 +60,7 @@ The platform ships as a complete SaaS: registration and login, per-tier daily qu
 - **Conversation history** — complete sessions stored and replayable with human-readable timestamps
 - **Billing (optional)** — Stripe Checkout subscriptions with webhook verification; the app runs fully without Stripe configured
 - **Demo mode** — set `DEMO_MODE=1` to auto-login a demo account and explore instantly
+- **Unified design system** — a single shared stylesheet (`static/scai.css`) styles every page: split-screen auth, card-based settings, chat bubbles with follow-up chips, and status pages
 
 ---
 
@@ -75,7 +88,7 @@ Stripe billing (optional)
 | Database | **SQLite** (single local file, auto-created) |
 | Speech synthesis | Google Text-to-Speech (gTTS) |
 | Payments | Stripe (optional) |
-| Frontend | HTML, CSS, vanilla JavaScript |
+| Frontend | HTML, vanilla JavaScript, shared design system (`static/scai.css`, Poppins + `#1A8CFF`) |
 
 ---
 
