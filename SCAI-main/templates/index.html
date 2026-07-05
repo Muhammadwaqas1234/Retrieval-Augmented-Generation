@@ -1030,6 +1030,40 @@ input[type="checkbox"]:hover {
             box-shadow: 0 0 0 3px #e8f3ff, 0 10px 26px rgba(31, 36, 48, 0.07) !important;
             outline: none;
         }
+        /* Message bubbles */
+        .chat-message { font-size: 0.94rem; line-height: 1.65; }
+        div#user-message {
+            background: #1f2430 !important;
+            color: #fff;
+            padding: 12px 18px !important;
+            border-radius: 16px 16px 4px 16px !important;
+            margin: 18px 0 16px auto !important;
+            max-width: 72%;
+            width: fit-content;
+        }
+        div#response-message {
+            background: #fff !important;
+            border: 1px solid #e8eaed;
+            box-shadow: 0 2px 6px rgba(31, 36, 48, 0.05), 0 10px 24px rgba(31, 36, 48, 0.06);
+            padding: 16px 20px !important;
+            border-radius: 16px 16px 16px 4px !important;
+            margin: 0 0 14px !important;
+            max-width: 88%;
+            color: #3d4351;
+        }
+        div#additional-question {
+            display: inline-block;
+            background: #e8f3ff !important;
+            color: #1a8cff;
+            border: 1px solid #cde5ff;
+            border-radius: 999px !important;
+            padding: 8px 16px !important;
+            margin: 4px 8px 4px 0 !important;
+            font-size: 0.84rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        div#additional-question:hover { background: #d8ebff !important; }
     </style>
 </head>
 
